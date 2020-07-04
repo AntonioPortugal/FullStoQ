@@ -1,8 +1,8 @@
-﻿using Data.Base;
+﻿using Recodme.RD.FullStoQ.Data.Base;
 using System;
 using System.Collections.Generic;
 
-namespace Data.Stock
+namespace Recodme.RD.FullStoQ.Data.Goods
 {
     public class ShoppingBasket : Entity
     {

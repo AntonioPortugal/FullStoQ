@@ -1,9 +1,9 @@
-﻿using Data.Base;
+﻿using Recodme.RD.FullStoQ.Data.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Data.Queues
+namespace Recodme.RD.FullStoQ.Data.Commercial
 {
     public class Company : NamedEntity
     {
@@ -28,13 +28,11 @@ namespace Data.Queues
         public Company(string name, int vatNumber) : base(name)
         {
             VatNumber = vatNumber;
-
         }
 
         public Company(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, int vatNumber) : base(id, createdAt, updatedAt, isDeleted, name)
         {
             VatNumber = vatNumber;
-
         }
     }
 

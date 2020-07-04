@@ -1,11 +1,11 @@
-﻿using Data.Base;
+﻿using Recodme.RD.FullStoQ.Data.Base;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Data.Queues
+namespace Recodme.RD.FullStoQ.Data.Q
 {
-    public class StoreQueue : NamedEntity
+    public class Queue : NamedEntity
     {
         private int _quantity;
 
@@ -43,14 +43,14 @@ namespace Data.Queues
         public Guid EstablishmentId { get; set; }
         public virtual Establishment Establishment { get; set; }
 
-        public StoreQueue(string name, int quantity, bool isUpdated) : base(name)
+        public Queue(string name, int quantity, bool isUpdated) : base(name)
         {
             Quantity = quantity;
             IsUpdated = isUpdated;
 
         }
 
-        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, int quantity, bool isUpdated) : base(id, createdAt, updatedAt, isDeleted, name)
+        public Queue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, int quantity, bool isUpdated) : base(id, createdAt, updatedAt, isDeleted, name)
         {
             Quantity = quantity;
             IsUpdated = isUpdated;

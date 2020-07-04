@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Data.Base
+namespace Recodme.RD.FullStoQ.Data.Base
 {
     public abstract class NamedEntity : Entity
     {

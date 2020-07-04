@@ -6,4 +6,11 @@
     <RootNamespace>Recodme.RD.FullStoQ.Business</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Commercial\" />
+    <Folder Include="Goods\" />
+    <Folder Include="Q\" />
+    <Folder Include="Person\" />
+  </ItemGroup>
+
 </Project>

@@ -1,11 +1,12 @@
-﻿using Data.Base;
-using Data.Stock;
+﻿using Recodme.RD.FullStoQ.Data.Base;
+using Recodme.RD.FullStoQ.Data.Q;
+using Recodme.RD.FullStoQ.Data.Goods;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Data.Queues
+namespace Recodme.RD.FullStoQ.Data.Commercial
 {
     public class Establishment : Entity
     {
@@ -80,7 +81,7 @@ namespace Data.Queues
 
         [ForeignKey("Queue")]
         public Guid QueueId { get; set; }
-        public virtual StoreQueue Queue { get; set; }
+        public virtual Queue Queue { get; set; }
 
 
         public virtual ICollection<EssentialGood> EssentialGoods { get; set; }

@@ -1,4 +1,4 @@
-﻿using Data.Base;
+﻿using Recodme.RD.FullStoQ.Data.Base;
 using Recodme.RD.FullStoQ.Data.Users;
 using System;
 using System.Collections.Generic;
@@ -94,7 +94,7 @@ namespace Data.Users
 
         }
 
-        public ICollection<Account> 
+        public ICollection<Account> Accounts { get; set; }
 
 
         public Profile(long vatNumber, string firstName, string lastName, long phoneNumber, DateTime birthDate, Guid userId)

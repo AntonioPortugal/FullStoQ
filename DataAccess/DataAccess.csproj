@@ -6,4 +6,11 @@
     <RootNamespace>Recodme.RD.FullStoQ.DataAccess</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Commercial\" />
+    <Folder Include="Goods\" />
+    <Folder Include="Person\" />
+    <Folder Include="Q\" />
+  </ItemGroup>
+
 </Project>
