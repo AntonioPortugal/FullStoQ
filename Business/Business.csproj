@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Recodme.RD.FullStoQ.Business</AssemblyName>
+    <RootNamespace>Recodme.RD.FullStoQ.Business</RootNamespace>
+  </PropertyGroup>
+
+</Project>

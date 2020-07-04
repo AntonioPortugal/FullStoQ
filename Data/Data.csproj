@@ -2,11 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Recodme.RD.FullStoQ.Data</AssemblyName>
+    <RootNamespace>Recodme.RD.FullStoQ.Data</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Feedback\" />
-    <Folder Include="Users\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
   </ItemGroup>
 
 </Project>
