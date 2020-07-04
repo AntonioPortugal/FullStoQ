@@ -1,7 +1,7 @@
-﻿using RECODME.RD.Jade.Data.Base;
+﻿using Data.Base;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Queues
 {
@@ -39,7 +39,9 @@ namespace Data.Queues
 
         }
 
-        public virtual ICollection<Establishment> Establishments { get; set; }
+        [ForeignKey("Establishment")]
+        public Guid EstablishmentId { get; set; }
+        public virtual Establishment Establishment { get; set; }
 
         public StoreQueue(string name, int quantity, bool isUpdated) : base(name)
         {
@@ -54,6 +56,7 @@ namespace Data.Queues
             IsUpdated = isUpdated;
 
         }
+
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace RECODME.RD.Jade.Data.Base
+namespace Data.Base
 {
     public abstract class NamedEntity : Entity
     {

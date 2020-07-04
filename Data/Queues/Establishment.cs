@@ -1,5 +1,7 @@
-﻿using RECODME.RD.Jade.Data.Base;
+﻿using Data.Base;
+using Data.Stock;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -79,6 +81,11 @@ namespace Data.Queues
         [ForeignKey("Queue")]
         public Guid QueueId { get; set; }
         public virtual StoreQueue Queue { get; set; }
+
+
+        public virtual ICollection<EssentialGood> EssentialGoods { get; set; }
+        public virtual ICollection<ShoppingBasket> ShoppingBaskets { get; set; }
+
 
         public Establishment(string address, string openingHours, string closingHours, string closingDays, Guid regionId, Guid companyId, Guid queueId)
         {
