@@ -16,14 +16,11 @@ namespace Data.Users
         public long VatNumber
         {
             get => _vatNumber;
-
             set
             {
                 _vatNumber = value;
                 RegisterChange();
-
             }
-
         }
 
         private string _firstName;
@@ -33,14 +30,11 @@ namespace Data.Users
         public string FirstName
         {
             get => _firstName;
-
             set
             {
                 _firstName = value;
                 RegisterChange();
-
             }
-
         }
 
         private string _lastName;
@@ -50,14 +44,11 @@ namespace Data.Users
         public string LastName
         {
             get => _lastName;
-
             set
             {
                 _lastName = value;
                 RegisterChange();
-
             }
-
         }
 
         private long _phoneNumber;
@@ -67,14 +58,11 @@ namespace Data.Users
         public long PhoneNumber
         {
             get => _phoneNumber;
-
             set
             {
                 _phoneNumber = value;
                 RegisterChange();
-
             }
-
         }
 
         private DateTime _birthDate;
@@ -84,20 +72,17 @@ namespace Data.Users
         public DateTime BirthDate
         {
             get => _birthDate;
-
             set
             {
                 _birthDate = value;
                 RegisterChange();
-
             }
-
         }
 
-        public ICollection<Account> 
+        public ICollection<Account> Accounts { get; set; }
 
-
-        public Profile(long vatNumber, string firstName, string lastName, long phoneNumber, DateTime birthDate, Guid userId)
+        public Profile(long vatNumber, string firstName, string lastName, long phoneNumber,
+            DateTime birthDate, Guid userId)
         {
             _vatNumber = vatNumber;
             _firstName = firstName;
@@ -114,6 +99,5 @@ namespace Data.Users
             _phoneNumber = phoneNumber;
             _birthDate = birthDate;
         }
-
     }
 }

@@ -7,5 +7,6 @@ namespace Recodme.RD.FullStoQ.Data.Users
 {
     public class Account : IdentityDbContext
     {
+
     }
 }

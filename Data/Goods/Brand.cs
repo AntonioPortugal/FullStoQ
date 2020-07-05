@@ -10,14 +10,11 @@ namespace Data.Stock
 
         public Brand(string name) : base(name)
         {
-
         }
 
-        public Brand(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name) : base(id, createdAt, updatedAt, isDeleted, name)
+        public Brand(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name) :
+            base(id, createdAt, updatedAt, isDeleted, name)
         {
-
         }
-
     }
-
 }

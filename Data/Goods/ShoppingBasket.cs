@@ -10,14 +10,11 @@ namespace Data.Stock
 
         public ShoppingBasket() : base()
         {
-
         }
 
-        public ShoppingBasket(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted) : base(id, createdAt, updatedAt, isDeleted)
+        public ShoppingBasket(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted) 
+            : base(id, createdAt, updatedAt, isDeleted)
         {
-
         }
-
     }
-
 }

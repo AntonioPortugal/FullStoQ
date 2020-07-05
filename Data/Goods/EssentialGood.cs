@@ -14,12 +14,10 @@ namespace Data.Stock
         public bool IsReserved
         {
             get => _isReserved;
-
             set
             {
                 _isReserved = value;
                 RegisterChange();
-
             }
 
         }
@@ -29,14 +27,11 @@ namespace Data.Stock
         public string BarCode
         {
             get => _barCode;
-
             set
             {
                 _barCode = value;
                 RegisterChange();
-
             }
-
         }
 
         private float _price;
@@ -45,14 +40,11 @@ namespace Data.Stock
         public float Price
         {
             get => _price;
-
             set
             {
                 _price = value;
                 RegisterChange();
-
             }
-
         }
 
         private float _weight;
@@ -61,26 +53,20 @@ namespace Data.Stock
         public float Weight
         {
             get => _weight;
-
             set
             {
                 _weight = value;
                 RegisterChange();
-
             }
-
         }
-
 
         [ForeignKey("Brand")]
         public Guid BrandId { get; set; }
         public virtual Brand Brand { get; set; }
 
-
         [ForeignKey("Type")]
         public Guid TypeId { get; set; }
         public virtual Type Type { get; set; }
-
 
         [ForeignKey("ShoppingBasket")]
         public Guid ShoppingBasketId { get; set; }
@@ -90,26 +76,23 @@ namespace Data.Stock
         public Guid EstablishmentId { get; set; }
         public virtual Establishment Establishment { get; set; }
 
-
-
-        public EssentialGood(string name, bool isReserved, string barCode, float price, float weight) : base(name)
+        public EssentialGood(string name, bool isReserved, string barCode, float price, float weight)
+            : base(name)
         {
             IsReserved = isReserved;
             BarCode = barCode;
             Price = price;
             Weight = weight;
-
         }
 
-        public EssentialGood(Guid id, DateTime createdAt, DateTime ReservedAt, bool isDeleted, string name, bool isReserved, string barCode, float price, float weight) : base(id, createdAt, ReservedAt, isDeleted, name)
+        public EssentialGood(Guid id, DateTime createdAt, DateTime ReservedAt, bool isDeleted, 
+            string name, bool isReserved, string barCode, float price, float weight) 
+            : base(id, createdAt, ReservedAt, isDeleted, name)
         {
             IsReserved = isReserved;
             BarCode = barCode;
             Price = price;
             Weight = weight;
-
         }
-
     }
-
 }

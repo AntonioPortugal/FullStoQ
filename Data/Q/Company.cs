@@ -13,14 +13,11 @@ namespace Data.Queues
         public int VatNumber
         {
             get => _vatNumber;
-
             set
             {
                 _vatNumber = value;
                 RegisterChange();
-
             }
-
         }
 
         public virtual ICollection<Establishment> Establishments { get; set; }
@@ -28,14 +25,12 @@ namespace Data.Queues
         public Company(string name, int vatNumber) : base(name)
         {
             VatNumber = vatNumber;
-
         }
 
-        public Company(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, int vatNumber) : base(id, createdAt, updatedAt, isDeleted, name)
+        public Company(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, 
+            int vatNumber) : base(id, createdAt, updatedAt, isDeleted, name)
         {
             VatNumber = vatNumber;
-
         }
     }
-
 }
