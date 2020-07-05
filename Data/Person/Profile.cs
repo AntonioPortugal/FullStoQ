@@ -1,11 +1,9 @@
 ﻿using Recodme.RD.FullStoQ.Data.Base;
-using Recodme.RD.FullStoQ.Data.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace Recodme.RD.FullStoQ.Data.Users
+namespace Recodme.RD.FullStoQ.Data.Person
 {
     public class Profile : Entity
     {

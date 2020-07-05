@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Recodme.RD.FullStoQ.Data.Users
+namespace Recodme.RD.FullStoQ.Data.Person
+
 {
     public class Account : IdentityDbContext
     {
