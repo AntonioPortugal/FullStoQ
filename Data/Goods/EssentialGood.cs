@@ -1,10 +1,10 @@
-﻿using Data.Queues;
-using Data.Base;
+﻿using Recodme.RD.FullStoQ.Data.Commercial;
+using Recodme.RD.FullStoQ.Data.Base;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Data.Stock
+namespace Recodme.RD.FullStoQ.Data.Goods
 {
     public class EssentialGood : NamedEntity
     {

@@ -13,11 +13,14 @@ namespace Data.Queues
         public int Quantity
         {
             get => _quantity;
+
             set
             {
                 _quantity = value;
                 RegisterChange();
+
             }
+
         }
 
         private bool _isUpdated;
@@ -26,11 +29,14 @@ namespace Data.Queues
         public bool IsUpdated
         {
             get => _isUpdated;
+
             set
             {
                 _isUpdated = value;
                 RegisterChange();
+
             }
+
         }
 
         [ForeignKey("Establishment")]
@@ -41,13 +47,16 @@ namespace Data.Queues
         {
             Quantity = quantity;
             IsUpdated = isUpdated;
+
         }
 
-        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name,
-            int quantity, bool isUpdated) : base(id, createdAt, updatedAt, isDeleted, name)
+        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, int quantity, bool isUpdated) : base(id, createdAt, updatedAt, isDeleted, name)
         {
             Quantity = quantity;
             IsUpdated = isUpdated;
+
         }
+
     }
+
 }
