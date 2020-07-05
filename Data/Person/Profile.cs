@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Data.Users
+namespace Recodme.RD.FullStoQ.Data.Users
 {
     public class Profile : Entity
     {

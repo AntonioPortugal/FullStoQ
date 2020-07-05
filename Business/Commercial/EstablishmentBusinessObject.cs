@@ -1,11 +1,11 @@
 ﻿using Recodme.RD.FullStoQ.Business.OperationResults;
-using Recodme.RD.FullStoQ.DataAccess.Queues;
+using Recodme.RD.FullStoQ.DataAccess.Commercial;
 using System;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Collections.Generic;
 
-namespace Recodme.RD.FullStoQ.Business.Queues
+namespace Recodme.RD.FullStoQ.Business.Commercial
 {
     public class EstablishmentBusinessObject : OperationResult
     {
@@ -15,21 +15,22 @@ namespace Recodme.RD.FullStoQ.Business.Queues
             _dao = new EstablishmentDataAccessObject();
         }
 
+       private readonly TransactionOptions transactionOptions = new TransactionOptions()
+        {
+            IsolationLevel = IsolationLevel.ReadCommitted,
+            Timeout = TimeSpan.FromSeconds(30)
+        };
+
         #region Count
         public OperationResult<int> CountAll()
         {
             try
             {
-                var transactionOptions = new TransactionOptions
-                {
-                    IsolationLevel = IsolationLevel.ReadCommitted,
-                    Timeout = TimeSpan.FromSeconds(30)
-                };
-                using (var ts = new TransactionScope(TransactionScopeOption.Required, transactionOptions, 
+                using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions,
                     TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    var result = _dao.Count;
-                    ts.Complete();
+                    var result = _dao.List().Count;
+                    scope.Complete();
                     return new OperationResult<int>() { Success = true, Result = result };
                 }
             }
@@ -42,16 +43,11 @@ namespace Recodme.RD.FullStoQ.Business.Queues
         {
             try
             {
-                var transactionOptions = new TransactionOptions
-                {
-                    IsolationLevel = IsolationLevel.ReadCommitted,
-                    Timeout = TimeSpan.FromSeconds(30)
-                };
-                using (var ts = new TransactionScope(TransactionScopeOption.Required, transactionOptions, 
+                using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, 
                     TransactionScopeAsyncFlowOption.Enabled))
                 {
                     var result = await _dao.ListAsync();
-                    ts.Complete();
+                    scope.Complete();
                     return new OperationResult<int>() { Success = true, Result = result.Count };
                 }
             }
@@ -60,6 +56,6 @@ namespace Recodme.RD.FullStoQ.Business.Queues
                 return new OperationResult<int>() { Success = false, Exception = e };
             }
         }
-        #endregion 
+        #endregion
     }
 }

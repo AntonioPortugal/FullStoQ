@@ -1,19 +1,34 @@
-﻿using Data.Queues;
+﻿using Microsoft.EntityFrameworkCore;
+using Recodme.RD.FullStoQ.Data.Commercial;
 using Recodme.RD.FullStoQ.Data.Users;
+using Recodme.RD.FullStoQ.DataAccess.Contexts;
 using System;
-using System.Data.Entity;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
-namespace Recodme.RD.FullStoQ.DataAccess.Queues
+namespace Recodme.RD.FullStoQ.DataAccess.Commercial
 {
     public class EstablishmentDataAccessObject 
     {
-        private Account _context;
+        private Context _context;
 
         public EstablishmentDataAccessObject()
         {
-            _context = new Account();
+            _context = new Context();
         }
+
+        #region List
+        public List<Establishment> List()
+        {
+            return _context.Set<Establishment>().ToList();
+        }
+        public async Task<List<Establishment>> ListAsync()
+        {
+            return await _context.Set<Establishment>().ToListAsync();
+        }
+        #endregion
 
         #region Create
         public void Create(Establishment establishment)

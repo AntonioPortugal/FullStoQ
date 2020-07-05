@@ -1,4 +1,5 @@
 ﻿using Recodme.RD.FullStoQ.Data.Base;
+using Recodme.RD.FullStoQ.Data.Commercial;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
