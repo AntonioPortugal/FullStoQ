@@ -81,7 +81,7 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
 
         [ForeignKey("Queue")]
         public Guid QueueId { get; set; }
-        public virtual Queue Queue { get; set; }
+        public virtual StoreQueue Queue { get; set; }
 
 
         public virtual ICollection<EssentialGood> EssentialGoods { get; set; }

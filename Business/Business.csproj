@@ -18,7 +18,6 @@
   <ItemGroup>
     <Folder Include="Goods\" />
     <Folder Include="Person\" />
-    <Folder Include="Q\" />
   </ItemGroup>
 
 </Project>

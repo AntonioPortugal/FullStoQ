@@ -1,11 +1,9 @@
 ﻿using Recodme.RD.FullStoQ.Data.Base;
-using Recodme.RD.FullStoQ.Data.Users;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Recodme.RD.FullStoQ.Data.Users
+namespace Recodme.RD.FullStoQ.Data.Person
 {
     public class Profile : Entity
     {
@@ -79,7 +77,10 @@ namespace Recodme.RD.FullStoQ.Data.Users
             }
         }
 
-        public ICollection<Account> Accounts { get; set; }
+
+        [ForeignKey("Account")]
+        public Guid AccountId { get; set; }
+        public virtual Account Account { get; set; }
 
         public Profile(long vatNumber, string firstName, string lastName, long phoneNumber,
             DateTime birthDate, Guid userId)
