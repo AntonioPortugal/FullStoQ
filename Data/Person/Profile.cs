@@ -1,5 +1,6 @@
 ﻿using Recodme.RD.FullStoQ.Data.Base;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -77,6 +78,8 @@ namespace Recodme.RD.FullStoQ.Data.Person
             }
         }
 
+        public ICollection<Message> IncomingMessages { get; set; }
+        public ICollection<Message> OutgoingMessages { get; set; }
 
         [ForeignKey("Account")]
         public Guid AccountId { get; set; }

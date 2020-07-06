@@ -28,13 +28,12 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
             }
         }
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    builder.Entity<Person>().HasOne(x => x.LennyouseUser).WithOne(x => x.Person);
-        //    base.OnModelCreating(builder);
-        //}
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Profile>().HasOne(x => x.Account).WithOne(x => x.Profile);
+            base.OnModelCreating(builder);
+        }
 
-        public DbSet<Account> Accounts { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Establishment> Establishments { get; set; }

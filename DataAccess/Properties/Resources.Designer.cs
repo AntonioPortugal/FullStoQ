@@ -61,11 +61,47 @@ namespace Recodme.RD.FullStoQ.DataAccess.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RECODME-ALUIZA\SQLEXPRESS.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ConnectionString {
             get {
                 return ResourceManager.GetString("ConnectionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server=RECODME-ALUIZA\SQLEXPRESS;Database=FullStoQ;Trusted_Connection=true;.
+        /// </summary>
+        public static string ConnectionStringAna {
+            get {
+                return ResourceManager.GetString("ConnectionStringAna", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server=RECODME-AMARTIM\SQLEXPRESS;Database=FullStoQ;Trusted_Connection=true;.
+        /// </summary>
+        public static string ConnectionStringAntonio {
+            get {
+                return ResourceManager.GetString("ConnectionStringAntonio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server=RECODME-JOAOJ\SQLEXPRESS;Database=FullStoQ;Trusted_Connection=true;.
+        /// </summary>
+        public static string ConnectionStringJoao {
+            get {
+                return ResourceManager.GetString("ConnectionStringJoao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server=RECODME-VASCOV\SQLEXPRESS;Database=FullStoQ;Trusted_Connection=true;.
+        /// </summary>
+        public static string ConnectionStringVasco {
+            get {
+                return ResourceManager.GetString("ConnectionStringVasco", resourceCulture);
             }
         }
     }
