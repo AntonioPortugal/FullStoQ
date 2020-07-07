@@ -3,7 +3,6 @@ using Recodme.RD.FullStoQ.Data.Commercial;
 using Recodme.RD.FullStoQ.DataAccess.Commercial;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -204,44 +203,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                 return new OperationResult<List<Company>>() { Success = false, Exception = e };
             }
         }
-        #endregion
-
-        #region Count All
-        public OperationResult<int> CountAll()
-        {
-            try
-            {
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    var result = _dao.List().Count;
-                    scope.Complete();
-                    return new OperationResult<int>() { Success = true, Result = result };
-                }
-
-            }
-            catch (Exception e)
-            {
-                return new OperationResult<int>() { Success = false, Exception = e };
-            }
-        }
-
-        public async Task<OperationResult<int>> CountAllAsync()
-        {
-            try
-            {
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    var result = await _dao.ListAsync();
-                    scope.Complete();
-                    return new OperationResult<int>() { Success = true, Result = result.Count };
-                }
-            }
-            catch (Exception e)
-            {
-                return new OperationResult<int>() { Success = false, Exception = e };
-            }
-        }
-        #endregion
+        #endregion        
 
     }
 }
