@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Recodme.RD.FullStoQ.Data.Commercial;
-using Recodme.RD.FullStoQ.Data.Users;
 using Recodme.RD.FullStoQ.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Recodme.RD.FullStoQ.DataAccess.Commercial
 {
@@ -33,13 +31,13 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
         #region Create
         public void Create(Establishment establishment)
         {
-            _context.Establishment.Add(establishment);
+            _context.Establishments.Add(establishment);
             _context.SaveChanges();
         }
 
         public async Task CreateAsync(Establishment establishment)
         {
-            await _context.Establishment.AddAsync(establishment);
+            await _context.Establishments.AddAsync(establishment);
             await _context.SaveChangesAsync();
         }
         #endregion
@@ -47,12 +45,12 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
         #region Read
         public Establishment Read(Guid id)
         {
-            return _context.Establishment.FirstOrDefault(x => x.Id == id);
+            return _context.Establishments.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<Establishment> ReadAsync(Guid id)
         {
-            Func<Establishment> establishment = () => _context.Establishment.FirstOrDefault(x => x.Id == id);
+            Func<Establishment> establishment = () => _context.Establishments.FirstOrDefault(x => x.Id == id);
             return await new Task<Establishment>(establishment);
         }
         #endregion
