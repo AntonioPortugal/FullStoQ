@@ -32,6 +32,8 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
         {
             builder.Entity<Profile>().HasOne(x => x.Account).WithOne(x => x.Profile);
             builder.Entity<StoreQueue>().HasOne(x => x.Establishment).WithOne(x => x.Queue);
+            builder.Entity<Profile>().HasMany(x => x.OutgoingMessages).WithOne(x => x.ProfileSender).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Profile>().HasMany(x => x.IncomingMessages).WithOne(x => x.ProfileReceiver).OnDelete(DeleteBehavior.NoAction);
             base.OnModelCreating(builder);
         }
 
