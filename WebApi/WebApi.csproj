@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\CompanyControllers\" />
     <Folder Include="Controllers\GoodsControllers\" />
     <Folder Include="Controllers\PersonControllers\" />
     <Folder Include="Controllers\UsersControllers\" />
