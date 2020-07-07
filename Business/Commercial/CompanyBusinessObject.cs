@@ -24,7 +24,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
             Timeout = TimeSpan.FromSeconds(30)
         };
 
-        #region Create
+        #region C
         public OperationResult Create(Company item)
         {
             try
@@ -52,7 +52,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         }
         #endregion
 
-        #region Read
+        #region R
         public OperationResult<Company> Read(Guid id)
         {
             try
@@ -88,7 +88,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         }
         #endregion
 
-        #region Update
+        #region U
         public OperationResult Update(Company item)
         {
             try
@@ -116,7 +116,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         }
         #endregion
 
-        #region Delete
+        #region D
         public OperationResult Delete(Company item)
         {
             try
@@ -170,7 +170,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         }
         #endregion
 
-        #region List
+        #region L
         public OperationResult<List<Company>> List()
         {
             try
@@ -202,43 +202,6 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
             catch (Exception e)
             {
                 return new OperationResult<List<Company>>() { Success = false, Exception = e };
-            }
-        }
-        #endregion
-
-        #region Count All
-        public OperationResult<int> CountAll()
-        {
-            try
-            {
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    var result = _dao.List().Count;
-                    scope.Complete();
-                    return new OperationResult<int>() { Success = true, Result = result };
-                }
-
-            }
-            catch (Exception e)
-            {
-                return new OperationResult<int>() { Success = false, Exception = e };
-            }
-        }
-
-        public async Task<OperationResult<int>> CountAllAsync()
-        {
-            try
-            {
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    var result = await _dao.ListAsync();
-                    scope.Complete();
-                    return new OperationResult<int>() { Success = true, Result = result.Count };
-                }
-            }
-            catch (Exception e)
-            {
-                return new OperationResult<int>() { Success = false, Exception = e };
             }
         }
         #endregion
