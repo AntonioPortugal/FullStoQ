@@ -31,6 +31,15 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Profile>().HasOne(x => x.Account).WithOne(x => x.Profile);
+            builder.Entity<Message>().HasOne(x => x.ProfileSender)
+                .WithMany(x => x.IncomingMessages)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Message>().HasOne(x => x.ProfileReceiver)
+               .WithMany(x => x.OutgoingMessages)
+               .OnDelete(DeleteBehavior.NoAction);
+            ;
+
             builder.Entity<StoreQueue>().HasOne(x => x.Establishment).WithOne(x => x.Queue);
             builder.Entity<Profile>().HasMany(x => x.OutgoingMessages).WithOne(x => x.ProfileSender).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Profile>().HasMany(x => x.IncomingMessages).WithOne(x => x.ProfileReceiver).OnDelete(DeleteBehavior.NoAction);
@@ -46,7 +55,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
         public DbSet<StoreQueue> Queues { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
-        public DbSet<Type> Types { get; set; }    
+        public DbSet<Type> Types { get; set; }
 
     }
 }
