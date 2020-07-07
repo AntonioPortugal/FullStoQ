@@ -220,10 +220,10 @@ namespace Recodme.RD.FullStoQ.Business.Q
                 };
 
                 var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                _dao.List();
+                var result = _dao.List();
                 transactionScope.Complete();
 
-                return new OperationResult<List<StoreQueue>>() { Success = true };
+                return new OperationResult<List<StoreQueue>>() { Success = true, Result = result };
 
             }
             catch (Exception e)
@@ -244,10 +244,10 @@ namespace Recodme.RD.FullStoQ.Business.Q
                 };
 
                 var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                await _dao.ListAsync();
+                var result = await _dao.ListAsync();
                 transactionScope.Complete();
 
-                return new OperationResult<List<StoreQueue>>() { Success = true };
+                return new OperationResult<List<StoreQueue>>() { Success = true, Result = result };
 
             }
             catch (Exception e)
