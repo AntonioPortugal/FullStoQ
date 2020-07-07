@@ -6,8 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Recodme.RD.FullStoQ.DataAccess.Extensions;
 using System.Text;
 using WebApi.Options;
+using Recodme.RD.FullStoQ.DataAccess.Contexts;
 
 namespace WebApi
 {
@@ -24,7 +27,9 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddCors();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer((options) =>
                 {
@@ -41,6 +46,9 @@ namespace WebApi
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     };
                 });
+
+            services.AddDataAccessContext();
+
             services.AddSwaggerGen(
                 (x) =>
                 {
@@ -48,11 +56,13 @@ namespace WebApi
                 });
         }
 
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Context context)
         {
+
             if (env.IsDevelopment())
             {
+                context.Database.EnsureCreated();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -79,7 +89,6 @@ namespace WebApi
 
             app.UseAuthorization();
 
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
