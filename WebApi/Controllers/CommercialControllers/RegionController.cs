@@ -1,63 +1,64 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Recodme.RD.FullStoQ.Business.Commercial;
+using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Recodme.RD.FullStoQ.Business.Q;
-using WebApi.Models.QModelViews;
+using System.Linq;
+using System.Threading.Tasks;
+using WebApi.Models.CommercialViewModel;
 
-namespace WebApi.Controllers.QController
+namespace WebApi.Controllers.CommercialControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StoreQueueController : BaseController
+    public class RegionController : BaseController
     {
-        private StoreQueueBusinessObject _bo = new StoreQueueBusinessObject();
+        private RegionBusinessObject _bo = new RegionBusinessObject();
 
         [HttpPost]
-        public ActionResult Create([FromBody]StoreQueueViewModel vm)
+        public ActionResult Create([FromBody]RegionViewModel vm)
         {
-            var sq = vm.ToStoreQueue();
-            var res = _bo.Create(sq);
+            var comp = vm.ToRegion();
+            var res = _bo.Create(comp);
             return (res.Success ? Ok() : InternalServerError());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<StoreQueueViewModel> Get(Guid id)
+        public ActionResult<RegionViewModel> Get(Guid id)
         {
             var res = _bo.Read(id);
             if (res.Success)
             {
                 if (res.Result == null) return NotFound();
-                var vm = StoreQueueViewModel.Parse(res.Result);
+                var vm = RegionViewModel.Parse(res.Result);
                 return vm;
             }
             else return InternalServerError();
         }
 
         [HttpGet]
-        public ActionResult<List<StoreQueueViewModel>> List()
+        public ActionResult<List<RegionViewModel>> List()
         {
             var res = _bo.List();
             if (!res.Success) return InternalServerError();
-            var list = new List<StoreQueueViewModel>();
+            var list = new List<RegionViewModel>();
             foreach (var item in res.Result)
             {
-                list.Add(StoreQueueViewModel.Parse(item));
+                list.Add(RegionViewModel.Parse(item));
             }
             return list;
         }
 
         [HttpPut]
-        public ActionResult Update([FromBody]StoreQueueViewModel sq)
+        public ActionResult Update([FromBody]RegionViewModel comp)
         {
-            var currentResult = _bo.Read(sq.Id);
+            var currentResult = _bo.Read(comp.Id);
             if (!currentResult.Success) return InternalServerError();
             var current = currentResult.Result;
             if (current == null) return NotFound();
 
-            if (current.Quantity == sq.Quantity && current.IsUpdated == sq.IsUpdated) return NotModified();
+            if (current.Name == comp.Name) return NotModified();
 
-            if (current.Quantity != sq.Quantity) current.Quantity = sq.Quantity;
-            if (current.IsUpdated != sq.IsUpdated) current.IsUpdated = sq.IsUpdated;
+            if (current.Name != comp.Name) current.Name = comp.Name;
 
             var updateResult = _bo.Update(current);
             if (!updateResult.Success) return InternalServerError();
@@ -72,7 +73,5 @@ namespace WebApi.Controllers.QController
             return InternalServerError();
 
         }
-
     }
-
 }
