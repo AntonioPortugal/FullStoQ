@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Recodme.RD.FullStoQ.Data.Q
 {
-    public class StoreQueue : NamedEntity
+    public class StoreQueue : Entity
     {
         private int _quantity;
 
@@ -44,14 +44,14 @@ namespace Recodme.RD.FullStoQ.Data.Q
         public Guid EstablishmentId { get; set; }
         public virtual Establishment Establishment { get; set; }
 
-        public StoreQueue(string name, int quantity, bool isUpdated) : base(name)
+        public StoreQueue(int quantity, bool isUpdated) : base()
         {
             Quantity = quantity;
             IsUpdated = isUpdated;
 
         }
 
-        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, int quantity, bool isUpdated) : base(id, createdAt, updatedAt, isDeleted, name)
+        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, int quantity, bool isUpdated) : base(id, createdAt, updatedAt, isDeleted)
         {
             Quantity = quantity;
             IsUpdated = isUpdated;
