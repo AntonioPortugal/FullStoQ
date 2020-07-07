@@ -177,9 +177,9 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
             {
                 using (var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    _dao.List();
+                    var res = _dao.List();
                     scope.Complete();
-                    return new OperationResult<List<Company>>() { Success = true };
+                    return new OperationResult<List<Company>>() { Success = true, Result = res };
                 }
             }
             catch (Exception e)
@@ -194,9 +194,9 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
             {
                 using (var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    await _dao.ListAsync();
+                    var res = await _dao.ListAsync();
                     scope.Complete();
-                    return new OperationResult<List<Company>>() { Success = true };
+                    return new OperationResult<List<Company>>() { Success = true, Result = res };
                 }
             }
             catch (Exception e)
@@ -205,6 +205,5 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
             }
         }
         #endregion
-
     }
 }
