@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using System.Transactions;
 using System.Collections.Generic;
+using Recodme.RD.FullStoQ.Data.Commercial;
 
 namespace Recodme.RD.FullStoQ.Business.Commercial
 {
@@ -13,47 +14,206 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         public EstablishmentBusinessObject()
         {
             _dao = new EstablishmentDataAccessObject();
-        }
+        }    
 
-       private readonly TransactionOptions transactionOptions = new TransactionOptions()
-        {
-            IsolationLevel = IsolationLevel.ReadCommitted,
-            Timeout = TimeSpan.FromSeconds(30)
-        };
-
-        #region Count
-        public OperationResult<int> CountAll()
+        #region List
+        public OperationResult<List<Establishment>> List()
         {
             try
             {
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions,
-                    TransactionScopeAsyncFlowOption.Enabled))
+                var transactionOptions = new TransactionOptions
                 {
-                    var result = _dao.List().Count;
-                    scope.Complete();
-                    return new OperationResult<int>() { Success = true, Result = result };
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+                using (var ts = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    var result = _dao.List();
+                    ts.Complete();
+                    return new OperationResult<List<Establishment>>() { Success = true, Result = result };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<int>() { Success = false, Exception = e };
+                return new OperationResult<List<Establishment>>() { Success = false, Exception = e };
             }
         }
-        public async Task<OperationResult<int>> CountAllAsync()
+
+        public async Task<OperationResult<List<Establishment>>> ListAsync()
         {
             try
             {
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, 
+                var transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+                using (var ts = new TransactionScope(TransactionScopeOption.Required, transactionOptions,
                     TransactionScopeAsyncFlowOption.Enabled))
                 {
                     var result = await _dao.ListAsync();
-                    scope.Complete();
-                    return new OperationResult<int>() { Success = true, Result = result.Count };
+                    ts.Complete();
+                    return new OperationResult<List<Establishment>>() { Success = true, Result = result };
                 }
             }
             catch (Exception e)
             {
-                return new OperationResult<int>() { Success = false, Exception = e };
+                return new OperationResult<List<Establishment>>() { Success = false, Exception = e };
+            }
+        }
+        #endregion
+
+        #region Create
+        public OperationResult Create(Establishment establishment)
+        {
+            try
+            {
+
+                _dao.Create(establishment);
+                return new OperationResult() { Success = true };
+
+            }
+            catch (Exception e)
+            {
+                return new OperationResult() { Success = false, Exception = e };
+            }
+        }
+        public async Task<OperationResult> CreateAsync(Establishment establishment)
+        {
+            try
+            {
+                await _dao.CreateAsync(establishment);
+                return new OperationResult() { Success = true };
+            }
+            catch (Exception e)
+            {
+                return new OperationResult() { Success = false, Exception = e };
+            }
+        }
+        #endregion
+
+        #region Read
+        public OperationResult<Establishment> Read(Guid id)
+        {
+            try
+            {
+                var transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+                using (var transactionScope = new TransactionScope(TransactionScopeOption.Required,
+                    transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    var res = _dao.Read(id);
+                    transactionScope.Complete();
+                    return new OperationResult<Establishment>() { Success = true, Result = res };
+                }
+            }
+            catch (Exception e)
+            {
+                return new OperationResult<Establishment>() { Success = false, Exception = e };
+            }
+        }
+        public async Task<OperationResult<Establishment>> ReadAsync(Guid id)
+        {
+            try
+            {
+                var transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+                using (var transactionScope = new TransactionScope(TransactionScopeOption.Required,
+                    transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    var res = await _dao.ReadAsync(id);
+                    transactionScope.Complete();
+                    return new OperationResult<Establishment>() { Success = true, Result = res };
+                }
+            }
+            catch (Exception e)
+            {
+                return new OperationResult<Establishment>() { Success = false, Exception = e };
+            }
+        }
+        #endregion
+
+        #region Update
+        public OperationResult Update(Establishment establishment)
+        {
+            try
+            {
+                _dao.Update(establishment);
+                return new OperationResult() { Success = true };
+            }
+            catch (Exception e)
+            {
+                return new OperationResult() { Success = false, Exception = e };
+            }
+        }
+        public async Task<OperationResult> UpdateAsync(Establishment establishment)
+        {
+            try
+            {
+                await _dao.UpdateAsync(establishment);
+                return new OperationResult() { Success = true };
+            }
+            catch (Exception e)
+            {
+                return new OperationResult() { Success = true, Exception = e };
+            }
+        }
+        #endregion
+
+        #region Delete
+        public OperationResult Delete(Establishment establishment)
+        {
+            try
+            {
+                _dao.Delete(establishment);
+                return new OperationResult() { Success = true };
+            }
+            catch (Exception e)
+            {
+                return new OperationResult() { Success = true, Exception = e };
+            }
+        }
+        public async Task<OperationResult> DeleteAsync(Establishment establishment)
+        {
+            try
+            {
+                await _dao.DeleteAsync(establishment);
+                return new OperationResult() { Success = true };
+            }
+            catch (Exception e)
+            {
+                return new OperationResult() { Success = true, Exception = e };
+            }
+        }
+
+        public OperationResult Delete(Guid id)
+        {
+            try
+            {
+                _dao.Delete(id);
+                return new OperationResult() { Success = true };
+            }
+            catch (Exception e)
+            {
+                return new OperationResult() { Success = true, Exception = e };
+            }
+        }
+        public async Task<OperationResult> DeleteAsync(Guid id)
+        {
+            try
+            {
+                await _dao.DeleteAsync(id);
+                return new OperationResult() { Success = true };
+            }
+            catch (Exception e)
+            {
+                return new OperationResult() { Success = true, Exception = e };
             }
         }
         #endregion
