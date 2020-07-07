@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 using WebApi.Options;
 
 namespace WebApi
@@ -44,12 +44,12 @@ namespace WebApi
             services.AddSwaggerGen(
                 (x) =>
                 {
-                    x.SwaggerDoc("v1", new OpenApiInfo() { Title = "LennyHouse", Version = "v1" });
+                    x.SwaggerDoc("v1", new OpenApiInfo() { Title = "FullStoQ", Version = "v1" });
                 });
         }
 
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -63,8 +63,10 @@ namespace WebApi
             }
 
             var swaggerOptions = new SwaggerOptions();
-            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+            Configuration.GetSection(nameof(swaggerOptions)).Bind(swaggerOptions);
+
             app.UseSwagger(options => options.RouteTemplate = swaggerOptions.JsonRoute);
+
             app.UseSwaggerUI(options => options.SwaggerEndpoint(swaggerOptions.UiEndpoint,
                 swaggerOptions.ApiDescription));
 

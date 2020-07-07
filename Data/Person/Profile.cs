@@ -86,22 +86,24 @@ namespace Recodme.RD.FullStoQ.Data.Person
         public virtual Account Account { get; set; }
 
         public Profile(long vatNumber, string firstName, string lastName, long phoneNumber,
-            DateTime birthDate, Guid userId)
+            DateTime birthDate, Guid accountId)
         {
             _vatNumber = vatNumber;
             _firstName = firstName;
             _lastName = lastName;
             _phoneNumber = phoneNumber;
             _birthDate = birthDate;
+            AccountId = accountId;
         }
 
-        public Profile(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, long vatNumber, string firstName, string lastName, long phoneNumber, DateTime birthDate, Guid userId) : base(id, createdAt, updatedAt, isDeleted)
+        public Profile(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, long vatNumber, string firstName, string lastName, long phoneNumber, DateTime birthDate, Guid accountId) : base(id, createdAt, updatedAt, isDeleted)
         {
             _vatNumber = vatNumber;
             _firstName = firstName;
             _lastName = lastName;
             _phoneNumber = phoneNumber;
             _birthDate = birthDate;
+            AccountId = accountId;
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Profile>().HasOne(x => x.Account).WithOne(x => x.Profile);
+            builder.Entity<StoreQueue>().HasOne(x => x.Establishment).WithOne(x => x.Queue);
             base.OnModelCreating(builder);
         }
 
