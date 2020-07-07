@@ -30,7 +30,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
 
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
-        //    builder.Entity<Person>().HasOne(x => x.LennyouseUser).WithOne(x => x.Person);
+        //    builder.Entity<Profile>().HasOne(x => x.AccountUser).WithOne(x => x.Profile);
         //    base.OnModelCreating(builder);
         //}
 
