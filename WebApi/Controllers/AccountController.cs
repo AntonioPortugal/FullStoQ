@@ -16,7 +16,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseController
     {
         private readonly IConfiguration _config;
         public AccountController(IConfiguration config)
@@ -32,7 +32,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public ActionResult<string> Login()
         {
-            var mockUser = new Account();
+            var mockUser = new Account(Guid.NewGuid());
             mockUser.Email = "x@wtv.pt";
             mockUser.PasswordHash = "apalavrapassetemdeserfacil";
             return GenerateJsonWebToken(mockUser);
