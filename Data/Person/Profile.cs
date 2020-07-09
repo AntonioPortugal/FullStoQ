@@ -1,4 +1,5 @@
 ﻿using Recodme.RD.FullStoQ.Data.Base;
+using Recodme.RD.FullStoQ.Data.Q;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -78,12 +79,14 @@ namespace Recodme.RD.FullStoQ.Data.Person
             }
         }
 
+        public ICollection<ReservedQueue> ReservedQueues { get; set; }
         public ICollection<Message> IncomingMessages { get; set; }
         public ICollection<Message> OutgoingMessages { get; set; }
 
         [ForeignKey("Account")]
         public Guid AccountId { get; set; }
         public virtual Account Account { get; set; }
+
 
         public Profile(long vatNumber, string firstName, string lastName, long phoneNumber,
             DateTime birthDate, Guid accountId)
