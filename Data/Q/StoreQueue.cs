@@ -34,7 +34,8 @@ namespace Recodme.RD.FullStoQ.Data.Q
 
         }
 
-        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, int quantity) : base(id, createdAt, updatedAt, isDeleted)
+        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, int quantity) : base
+            (id, createdAt, updatedAt, isDeleted)
         {
             Quantity = quantity;
 
