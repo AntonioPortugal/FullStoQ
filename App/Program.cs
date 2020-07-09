@@ -9,7 +9,6 @@ namespace App
             var dao = new Context();
             dao.Database.EnsureCreated();
 
-
             //var obj = new StoreQueueBusinessObject();
             //var x = new StoreQueue(234, true );
             //var resul = obj.Create(x);

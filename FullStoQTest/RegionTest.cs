@@ -15,7 +15,6 @@ namespace FullStoQTest
             var resul = obj.Create(reg);
 
             Assert.IsTrue(resul.Success);
-
         }
     }
 }
