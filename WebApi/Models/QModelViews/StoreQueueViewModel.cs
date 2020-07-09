@@ -11,7 +11,7 @@ namespace WebApi.Models.QModelViews
 
         public StoreQueue ToStoreQueue()
         {
-            return new StoreQueue(Id, DateTime.UtcNow, DateTime.UtcNow, false, Quantity);
+            return new StoreQueue(Id, DateTime.UtcNow, DateTime.UtcNow, false, Quantity, Guid.NewGuid());
         }
 
         public static StoreQueueViewModel Parse(StoreQueue storeQueue)
