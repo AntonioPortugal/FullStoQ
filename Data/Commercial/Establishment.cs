@@ -84,18 +84,21 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
         public virtual ICollection<ShoppingBasket> ShoppingBaskets { get; set; }
 
 
-        public Establishment(string address, string openingHours, string closingHours, string closingDays, Guid regionId, Guid companyId, Guid queueId)
+        public Establishment(string address, string openingHours, string closingHours, string closingDays, Guid regionId,
+            Guid companyId)
         {
             Address = address;
             OpeningHours = openingHours;
             ClosingHours = closingHours;
             ClosingDays = closingDays;
             RegionId = regionId;
-            CompanyId = companyId;
+            CompanyId = companyId;            
 
         }
 
-        public Establishment(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, string address, string openingHours, string closingHours, string closingDays, Guid regionId, Guid companyId, Guid queueId) : base(id, createdAt, updatedAt, isDeleted)
+        public Establishment(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, 
+            string address, string openingHours, string closingHours, string closingDays, Guid regionId, 
+            Guid companyId) : base(id, createdAt, updatedAt, isDeleted)
         {
             Address = address;
             OpeningHours = openingHours;
@@ -103,7 +106,6 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
             ClosingDays = closingDays;
             RegionId = regionId;
             CompanyId = companyId;
-
         }
 
     }
