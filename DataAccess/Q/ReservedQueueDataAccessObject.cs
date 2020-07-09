@@ -44,10 +44,10 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 
         }
 
-        public async Task<StoreQueue> ReadAsync(Guid id)
+        public async Task<ReservedQueue> ReadAsync(Guid id)
         {
             return await
-                new Task<StoreQueue>(() => _context.ReservedQueues.FirstOrDefault(x => x.Id == id));
+                new Task<ReservedQueue>(() => _context.ReservedQueues.FirstOrDefault(x => x.Id == id));
 
         }
 
@@ -111,7 +111,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
         {
             return _context.Set<ReservedQueue>().ToList();
         }
-        public async Task<List<StoreQueue>> ListAsync()
+        public async Task<List<ReservedQueue>> ListAsync()
         {
             return await _context.Set<ReservedQueue>().ToListAsync();
         }
