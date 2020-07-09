@@ -10,11 +10,11 @@ namespace Recodme.RD.FullStoQ.Business.Q
 {
     public class StoreQueueBusinessObject
     {
-        private QueueDataAccessObject _dao;
+        private StoreQueueDataAccessObject _dao;
 
         public StoreQueueBusinessObject()
         {
-            _dao = new QueueDataAccessObject();
+            _dao = new StoreQueueDataAccessObject();
 
         }
 

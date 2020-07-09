@@ -48,7 +48,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
         public DbSet<EssentialGood> EssentialGoods { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<StoreQueue> RegularQueues { get; set; }
+        public DbSet<StoreQueue> StoreQueues { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
         public DbSet<Type> Types { get; set; }
