@@ -78,12 +78,8 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
         public Guid CompanyId { get; set; }
         public virtual Company Company { get; set; }
 
-
-        [ForeignKey("Queue")]
-        public Guid QueueId { get; set; }
-        public virtual StoreQueue Queue { get; set; }
-
-
+        public ICollection<ReservedQueue> ReservedQueues { get; set; }
+        public ICollection<StoreQueue> StoreQueues { get; set; }
         public virtual ICollection<EssentialGood> EssentialGoods { get; set; }
         public virtual ICollection<ShoppingBasket> ShoppingBaskets { get; set; }
 
@@ -96,7 +92,6 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
             ClosingDays = closingDays;
             RegionId = regionId;
             CompanyId = companyId;
-            QueueId = queueId;
 
         }
 
@@ -108,7 +103,6 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
             ClosingDays = closingDays;
             RegionId = regionId;
             CompanyId = companyId;
-            QueueId = queueId;
 
         }
 

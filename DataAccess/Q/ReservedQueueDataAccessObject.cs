@@ -4,31 +4,32 @@ using Recodme.RD.FullStoQ.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Recodme.RD.FullStoQ.DataAccess.Q
 {
-    public class QueueDataAccessObject
+    public class ReservedQueueDataAccessObject
     {
         private Context _context;
 
-        public QueueDataAccessObject()
+        public ReservedQueueDataAccessObject()
         {
             _context = new Context();
         }
 
         #region C
 
-        public void Create(StoreQueue queue)
+        public void Create(ReservedQueue queue)
         {
-            _context.RegularQueues.Add(queue);
+            _context.ReservedQueues.Add(queue);
             _context.SaveChanges();
 
         }
 
-        public async Task CreateAsync(StoreQueue queue)
+        public async Task CreateAsync(ReservedQueue queue)
         {
-            await _context.RegularQueues.AddAsync(queue);
+            await _context.ReservedQueues.AddAsync(queue);
             await _context.SaveChangesAsync();
 
         }
@@ -37,16 +38,16 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 
         #region R
 
-        public StoreQueue Read(Guid id)
+        public ReservedQueue Read(Guid id)
         {
-            return _context.RegularQueues.FirstOrDefault(x => x.Id == id);
+            return _context.ReservedQueues.FirstOrDefault(x => x.Id == id);
 
         }
 
         public async Task<StoreQueue> ReadAsync(Guid id)
         {
             return await
-                new Task<StoreQueue>(() => _context.RegularQueues.FirstOrDefault(x => x.Id == id));
+                new Task<StoreQueue>(() => _context.ReservedQueues.FirstOrDefault(x => x.Id == id));
 
         }
 
@@ -54,14 +55,14 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 
         #region U
 
-        public void Update(StoreQueue queue)
+        public void Update(ReservedQueue queue)
         {
             _context.Entry(queue).State = EntityState.Modified;
             _context.SaveChanges();
 
         }
 
-        public async Task UpdateAsync(StoreQueue queue)
+        public async Task UpdateAsync(ReservedQueue queue)
         {
             _context.Entry(queue).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -72,7 +73,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 
         #region D
 
-        public void Delete(StoreQueue queue)
+        public void Delete(ReservedQueue queue)
         {
             queue.IsDeleted = true;
             Update(queue);
@@ -87,7 +88,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 
         }
 
-        public async Task DeleteAsync(StoreQueue queue)
+        public async Task DeleteAsync(ReservedQueue queue)
         {
             queue.IsDeleted = true;
             await UpdateAsync(queue);
@@ -105,14 +106,16 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
         #endregion
 
         #region List
-        public List<StoreQueue> List()
+
+        public List<ReservedQueue> List()
         {
-            return _context.Set<StoreQueue>().ToList();
+            return _context.Set<ReservedQueue>().ToList();
         }
         public async Task<List<StoreQueue>> ListAsync()
         {
-            return await _context.Set<StoreQueue>().ToListAsync();
+            return await _context.Set<ReservedQueue>().ToListAsync();
         }
+
         #endregion
 
     }

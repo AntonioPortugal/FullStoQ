@@ -24,37 +24,19 @@ namespace Recodme.RD.FullStoQ.Data.Q
 
         }
 
-        private bool _isUpdated;
-
-        [Required]
-        public bool IsUpdated
-        {
-            get => _isUpdated;
-
-            set
-            {
-                _isUpdated = value;
-                RegisterChange();
-
-            }
-
-        }
-
         [ForeignKey("Establishment")]
         public Guid EstablishmentId { get; set; }
         public virtual Establishment Establishment { get; set; }
 
-        public StoreQueue(int quantity, bool isUpdated) : base()
+        public StoreQueue(int quantity) : base()
         {
             Quantity = quantity;
-            IsUpdated = isUpdated;
 
         }
 
-        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, int quantity, bool isUpdated) : base(id, createdAt, updatedAt, isDeleted)
+        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, int quantity) : base(id, createdAt, updatedAt, isDeleted)
         {
             Quantity = quantity;
-            IsUpdated = isUpdated;
 
         }
 
