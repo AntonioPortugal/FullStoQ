@@ -42,15 +42,20 @@ namespace WebApi
                     };
                 });
             services.AddSwaggerGen(
-                (x) =>
-                {
-                    x.SwaggerDoc("v1", new OpenApiInfo() { Title = "FullStoQ", Version = "v1" });
-                });
+                x => x.SwaggerDoc("v1", new OpenApiInfo() { Title = "FullStoQ", Version = "v1" })
+                );
         }
 
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var swaggerOptions = new SwaggerOptions();
+            Configuration.GetSection(nameof(swaggerOptions)).Bind(swaggerOptions);
+
+            app.UseSwagger(options => options.RouteTemplate = swaggerOptions.JsonRoute);
+
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("../swagger/v1/swagger.json", "MyAPI V1"));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -62,13 +67,7 @@ namespace WebApi
                 app.UseHsts();
             }
 
-            var swaggerOptions = new SwaggerOptions();
-            Configuration.GetSection(nameof(swaggerOptions)).Bind(swaggerOptions);
 
-            app.UseSwagger(options => options.RouteTemplate = swaggerOptions.JsonRoute);
-
-            app.UseSwaggerUI(options => options.SwaggerEndpoint(swaggerOptions.UiEndpoint,
-                swaggerOptions.ApiDescription));
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

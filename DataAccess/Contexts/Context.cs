@@ -40,7 +40,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
                .OnDelete(DeleteBehavior.NoAction);
             
 
-            builder.Entity<StoreQueue>().HasOne(x => x.Establishment).WithOne(x => x.Queue);
+            builder.Entity<Establishment>().HasOne(x => x.Queue).WithOne(x => x.Establishment);
 
             base.OnModelCreating(builder);
         }

@@ -44,18 +44,18 @@ namespace Recodme.RD.FullStoQ.Data.Q
         public Guid EstablishmentId { get; set; }
         public virtual Establishment Establishment { get; set; }
 
-        public StoreQueue(int quantity, bool isUpdated) : base()
+        public StoreQueue(int quantity, bool isUpdated, Guid establishmentId) : base()
         {
             Quantity = quantity;
             IsUpdated = isUpdated;
-
+            EstablishmentId = establishmentId;
         }
 
-        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, int quantity, bool isUpdated) : base(id, createdAt, updatedAt, isDeleted)
+        public StoreQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, int quantity, bool isUpdated, Guid establishmentId) : base(id, createdAt, updatedAt, isDeleted)
         {
             Quantity = quantity;
             IsUpdated = isUpdated;
-
+            EstablishmentId = establishmentId;
         }
 
     }

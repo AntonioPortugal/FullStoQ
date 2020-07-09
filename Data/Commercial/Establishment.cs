@@ -78,7 +78,7 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
         public Guid CompanyId { get; set; }
         public virtual Company Company { get; set; }
 
-
+        //Talvez seja 
         [ForeignKey("Queue")]
         public Guid QueueId { get; set; }
         public virtual StoreQueue Queue { get; set; }
@@ -88,7 +88,8 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
         public virtual ICollection<ShoppingBasket> ShoppingBaskets { get; set; }
 
 
-        public Establishment(string address, string openingHours, string closingHours, string closingDays, Guid regionId, Guid companyId, Guid queueId)
+        public Establishment(string address, string openingHours, string closingHours, 
+            string closingDays, Guid regionId, Guid companyId, Guid queueId)
         {
             Address = address;
             OpeningHours = openingHours;

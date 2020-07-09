@@ -14,13 +14,13 @@ namespace WebApi.Models.QModelViews
             return new StoreQueue(Id, DateTime.UtcNow, DateTime.UtcNow, false, Quantity, IsUpdated);
         }
 
-        public static StoreQueueViewModel Parse(StoreQueue StoreQueue)
+        public static StoreQueueViewModel Parse(StoreQueue storeQueue)
         {
             return new StoreQueueViewModel()
             {
-                Id = StoreQueue.Id,
-                Quantity = StoreQueue.Quantity,
-                IsUpdated = StoreQueue.IsUpdated,
+                Id = storeQueue.Id,
+                Quantity = storeQueue.Quantity,
+                IsUpdated = storeQueue.IsUpdated,
 
             };
 
