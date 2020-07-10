@@ -16,5 +16,18 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
 
             Assert.IsTrue(resul.Success);
         }
+
+        [TestMethod]
+        public void TestReadRegion()
+        {
+            var obj = new RegionBusinessObject();
+            var reg = new Region("Pingo Adoçicado");
+            obj.Create(reg);
+
+            var result = obj.Read(reg.Id);
+
+
+            Assert.IsTrue(result.Success);
+        }
     }
 }
