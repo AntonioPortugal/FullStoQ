@@ -2,12 +2,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Recodme.RD.FullStoQ.Business.Commercial;
 using Recodme.RD.FullStoQ.Data.Commercial;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FullStoQTest
 {
     [TestClass]
-    public class TypeTest
+    public class EstablishmentTest
     {
         #region Create
         [TestMethod]
@@ -52,14 +53,82 @@ namespace FullStoQTest
         }
         #endregion
 
-        #region Update      
+        #region Update
+        [TestMethod]
+        public void TestUpdateEstablishment()
+        {
+            var obj = new RegionBusinessObject();
+            var reg = new Region("Continental");
+            obj.Create(reg);
+
+            var objCom = new CompanyBusinessObject();
+            var com = new Company("Quitanda da dona Luzia", 123456);
+            objCom.Create(com);
+
+            var objEst = new EstablishmentBusinessObject();
+            var est = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+                "20:00", "Domingo", reg.Id, com.Id);
+            objEst.Create(est);
+
+            var res = objEst.Update(est);
+            
+            Assert.IsTrue(res.Success);
+        }
         #endregion
 
         #region Delete
+        [TestMethod]
+        public void TestDeleteEstablishment()
+        {
+            var obj = new RegionBusinessObject();
+            var reg = new Region("Continental");
+            obj.Create(reg);
 
+            var objCom = new CompanyBusinessObject();
+            var com = new Company("Quitanda da dona Luzia", 123456);
+            objCom.Create(com);
+
+            var objEst = new EstablishmentBusinessObject();
+            var est = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+                "20:00", "Domingo", reg.Id, com.Id);
+            objEst.Create(est);
+
+            var res = objEst.Delete(est);
+
+            Assert.IsTrue(res.Success);
+        }
         #endregion
 
         #region List
+    //    public void TestDeleteEstablishment()
+    //    {
+    //        var obj = new RegionBusinessObject();
+    //        var reg = new Region("Continental");
+    //        obj.Create(reg);
+
+    //        var objCom = new CompanyBusinessObject();
+    //        var com = new Company("Quitanda da dona Luzia", 123456);
+    //        objCom.Create(com);
+
+    //        var objEst = new EstablishmentBusinessObject();
+    //        var est = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+    //            "20:00", "Domingo", reg.Id, com.Id);
+    //        objEst.Create(est);
+
+    //        var ast = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+    //"20:00", "Domingo", reg.Id, com.Id);
+    //        objEst.Create(ast);
+            
+    //        var ist = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+    //"20:00", "Domingo", reg.Id, com.Id);
+    //        objEst.Create(ist);
+
+    //        var list = new List<Establishment>() { est, ast, ist };
+
+    //        var res = objEst.List(list);
+
+    //        Assert.IsTrue(res.Success);
+    //    }
         #endregion
     }
 }

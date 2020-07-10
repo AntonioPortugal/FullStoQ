@@ -11,7 +11,7 @@ namespace FullStoqTest
         public void TestMethod1()
         {
             var obj = new StoreQueueBusinessObject();
-            var result = new StoreQueue(234, true);
+            //var result = new StoreQueue(234, true);
 
         }
     }
