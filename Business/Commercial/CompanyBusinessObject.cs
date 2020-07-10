@@ -3,6 +3,7 @@ using Recodme.RD.FullStoQ.Data.Commercial;
 using Recodme.RD.FullStoQ.DataAccess.Commercial;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -57,12 +58,12 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         {
             try
             {
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    var res = _dao.Read(id);
-                    scope.Complete();
-                    return new OperationResult<Company>() { Success = true, Result = res };
-                }
+                using var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled);
+
+                var res = _dao.Read(id);
+                scope.Complete();
+                return new OperationResult<Company>() { Success = true, Result = res };
+
             }
             catch (Exception e)
             {
@@ -74,12 +75,12 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         {
             try
             {
-                using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    var res = await _dao.ReadAsync(id);
-                    transactionScope.Complete();
-                    return new OperationResult<Company>() { Success = true, Result = res };
-                }
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled);
+                
+                var res = await _dao.ReadAsync(id);
+                transactionScope.Complete();
+                return new OperationResult<Company>() { Success = true, Result = res };
+                
             }
             catch (Exception e)
             {
@@ -175,12 +176,11 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         {
             try
             {
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    var res = _dao.List();
-                    scope.Complete();
-                    return new OperationResult<List<Company>>() { Success = true, Result = res };
-                }
+                using var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled);
+                
+                var result = _dao.List().Where(x => !x.IsDeleted).ToList();
+                scope.Complete();
+                return new OperationResult<List<Company>>() { Success = true, Result = result };
             }
             catch (Exception e)
             {
@@ -192,12 +192,12 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         {
             try
             {
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled))
-                {
-                    var res = await _dao.ListAsync();
-                    scope.Complete();
-                    return new OperationResult<List<Company>>() { Success = true, Result = res };
-                }
+                using var scope = new TransactionScope(TransactionScopeOption.Required, opts, TransactionScopeAsyncFlowOption.Enabled);
+
+                var res = await _dao.ListAsync();
+                var result = res.Where(x => !x.IsDeleted).ToList();
+                scope.Complete();
+                return new OperationResult<List<Company>>() { Success = true, Result = res };
             }
             catch (Exception e)
             {

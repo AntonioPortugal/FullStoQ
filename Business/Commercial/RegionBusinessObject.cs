@@ -3,6 +3,7 @@ using Recodme.RD.FullStoQ.Data.Commercial;
 using Recodme.RD.FullStoQ.DataAccess.Commercial;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -10,7 +11,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
 {
     public class RegionBusinessObject
     {
-        private RegionDataAccessObject _dao;
+        private readonly RegionDataAccessObject _dao;
 
         public RegionBusinessObject()
         {
@@ -220,7 +221,8 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                 };
 
                 using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                var result =_dao.List();
+                var result = _dao.List().Where(x => !x.IsDeleted).ToList();
+
                 transactionScope.Complete();
 
                 return new OperationResult<List<Region>>() { Success = true, Result = result };
@@ -244,7 +246,8 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                 };
 
                 using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                var result = await _dao.ListAsync();
+                var res = await _dao.ListAsync();
+                var result = res.Where(x => !x.IsDeleted).ToList();
                 transactionScope.Complete();
 
                 return new OperationResult<List<Region>>() { Success = true, Result = result };

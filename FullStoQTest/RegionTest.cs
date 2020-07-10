@@ -10,9 +10,9 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
     public class RegionTest
     {
         [TestMethod]
-        public void TestCreateAndListRegions()
+        public void TestCreateAndReadRegions()
         {
-            ContextSeeder.SeedCountries();
+            ContextSeeder.Seed();
             var bo = new RegionBusinessObject();
             var reg = new Region("Lisboa");
             var resCreate = bo.Create(reg);
@@ -23,7 +23,7 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         [TestMethod]
         public void TestListRegions()
         {
-            ContextSeeder.SeedCountries();
+            ContextSeeder.Seed();
             var bo = new RegionBusinessObject();
             var resList = bo.List();
             Assert.IsTrue(resList.Success && resList.Result.Count == 1);
@@ -32,7 +32,7 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         [TestMethod]
         public void TestUpdateRegions()
         {
-            ContextSeeder.SeedCountries();
+            ContextSeeder.Seed();
             var bo = new RegionBusinessObject();
             var resList = bo.List();
             var item = resList.Result.FirstOrDefault();
@@ -45,7 +45,7 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         [TestMethod]
         public void TestDeleteRegions()
         {
-            ContextSeeder.SeedCountries();
+            ContextSeeder.Seed();
             var bo = new RegionBusinessObject();
             var resList = bo.List();
             var resDelete = bo.Delete(resList.Result.First().Id);
