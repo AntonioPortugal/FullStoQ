@@ -11,21 +11,21 @@ namespace Recodme.RD.FullStoQ.Data.Q
         public Guid EstablishmentId { get; set; }
         public virtual Establishment Establishment { get; set; }
 
-        [ForeignKey("Profile")]
-        public Guid ProfileId { get; set; }
-        public virtual Profile Profiles { get; set; }
+        //[ForeignKey("Profile")]
+        //public Guid ProfileId { get; set; }
+        //public virtual Profile Profiles { get; set; }
 
-        public ReservedQueue(Guid establishmentId, Guid profileId) : base()
+        public ReservedQueue(Guid establishmentId/*, Guid profileId*/) : base()
         {
             EstablishmentId = establishmentId;
-            ProfileId = profileId;
+            //ProfileId = profileId;
 
         }
 
-        public ReservedQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, Guid establishmentId, Guid profileId) : base(id, createdAt, updatedAt, isDeleted)
+        public ReservedQueue(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, Guid establishmentId/*, Guid profileId*/) : base(id, createdAt, updatedAt, isDeleted)
         {
             EstablishmentId = establishmentId;
-            ProfileId = profileId;
+            //ProfileId = profileId;
 
         }
 

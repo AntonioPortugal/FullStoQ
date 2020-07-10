@@ -65,7 +65,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
 
                 };
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
                 var result = _dao.Read(id);
                 transactionScope.Complete();
                 return new OperationResult<Region>() { Success = true, Result = result };
@@ -90,7 +90,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
 
                 };
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
                 await _dao.ReadAsync(id);
                 transactionScope.Complete();
                 return new OperationResult<Region>() { Success = true };
@@ -219,11 +219,11 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
                 };
 
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                _dao.List();
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var result =_dao.List();
                 transactionScope.Complete();
 
-                return new OperationResult<List<Region>>() { Success = true };
+                return new OperationResult<List<Region>>() { Success = true, Result = result };
 
             }
             catch (Exception e)
@@ -243,11 +243,11 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
                 };
 
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                await _dao.ListAsync();
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var result = await _dao.ListAsync();
                 transactionScope.Complete();
 
-                return new OperationResult<List<Region>>() { Success = true };
+                return new OperationResult<List<Region>>() { Success = true, Result = result };
 
             }
             catch (Exception e)

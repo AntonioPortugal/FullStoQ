@@ -7,10 +7,10 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
 {
     public class Company : NamedEntity
     {
-        private int _vatNumber;
+        private long _vatNumber;
 
         [Required]
-        public int VatNumber
+        public long VatNumber
         {
             get => _vatNumber;
 
@@ -25,12 +25,12 @@ namespace Recodme.RD.FullStoQ.Data.Commercial
 
         public virtual ICollection<Establishment> Establishments { get; set; }
 
-        public Company(string name, int vatNumber) : base(name)
+        public Company(string name, long vatNumber) : base(name)
         {
             VatNumber = vatNumber;
         }
 
-        public Company(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, int vatNumber) : base(id, createdAt, updatedAt, isDeleted, name)
+        public Company(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name, long vatNumber) : base(id, createdAt, updatedAt, isDeleted, name)
         {
             VatNumber = vatNumber;
         }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Recodme.RD.FullStoQ.Business.Commercial;
 using Recodme.RD.FullStoQ.Data.Commercial;
+using Recodme.RD.FullStoQ.DataAccess.Seeders;
+using System.Linq;
 
 namespace FullStoQTest
 {
@@ -8,26 +10,48 @@ namespace FullStoQTest
     public class RegionTest
     {
         [TestMethod]
-        public void TestCreateRegion()
+        public void TestCreateAndListRegions()
         {
-            var obj = new RegionBusinessObject();
-            var reg = new Region("Continental");
-            var resul = obj.Create(reg);
-
-            Assert.IsTrue(resul.Success);
+            ContextSeeder.SeedCountries();
+            var bo = new RegionBusinessObject();
+            var reg = new Region("Lisboa");
+            var resCreate = bo.Create(reg);
+            var resGet = bo.Read(reg.Id);
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
 
         [TestMethod]
-        public void TestReadRegion()
+        public void TestListRegions()
         {
-            var obj = new RegionBusinessObject();
-            var reg = new Region("Pingo Adoçicado");
-            obj.Create(reg);
-
-            var result = obj.Read(reg.Id);
-
-
-            Assert.IsTrue(result.Success);
+            ContextSeeder.SeedCountries();
+            var bo = new RegionBusinessObject();
+            var resList = bo.List();
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
         }
+        
+        [TestMethod]
+        public void TestUpdateRegions()
+        {
+            ContextSeeder.SeedCountries();
+            var bo = new RegionBusinessObject();
+            var resList = bo.List();
+            var item = resList.Result.FirstOrDefault();
+            item.Name = "another";
+            var resUpdate = bo.Update(item);
+            var resNotList = bo.List().Result.Where(x => !x.IsDeleted);
+            Assert.IsTrue(resUpdate.Success && resNotList.First().Name == "another");
+        }
+
+        [TestMethod]
+        public void TestDeleteRegions()
+        {
+            ContextSeeder.SeedCountries();
+            var bo = new RegionBusinessObject();
+            var resList = bo.List();
+            var resDelete = bo.Delete(resList.Result.First().Id);
+            var resNotList = bo.List().Result.Where(x => !x.IsDeleted).ToList();
+            Assert.IsTrue(resDelete.Success && resNotList.Count == 0);
+        }
+
     }
 }
