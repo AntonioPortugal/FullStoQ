@@ -1,10 +1,6 @@
 ﻿using Recodme.RD.FullStoQ.Data.Commercial;
 using Recodme.RD.FullStoQ.Data.Q;
-using Recodme.RD.FullStoQ.DataAccess.Commercial;
 using Recodme.RD.FullStoQ.DataAccess.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Recodme.RD.FullStoQ.DataAccess.Seeders
 {

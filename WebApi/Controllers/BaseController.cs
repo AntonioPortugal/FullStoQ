@@ -7,12 +7,12 @@ namespace WebApi.Controllers
     [ApiController]
     public class BaseController : ControllerBase
     {
-        public StatusCodeResult InternalServerError()
+        protected StatusCodeResult InternalServerError()
         {
             return StatusCode((int)HttpStatusCode.InternalServerError);
         }
 
-        public StatusCodeResult NotModified()
+        protected StatusCodeResult NotModified()
         {
             return StatusCode((int)HttpStatusCode.NotModified);
         }
