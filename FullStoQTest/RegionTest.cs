@@ -2,7 +2,7 @@
 using Recodme.RD.FullStoQ.Business.Commercial;
 using Recodme.RD.FullStoQ.Data.Commercial;
 
-namespace FullStoQTest
+namespace Recodme.RD.FullStoQ.FullStoQTest
 {
     [TestClass]
     public class RegionTest
