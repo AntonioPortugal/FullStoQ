@@ -38,9 +38,6 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
             builder.Entity<Message>().HasOne(x => x.ProfileReceiver)
                .WithMany(x => x.OutgoingMessages)
                .OnDelete(DeleteBehavior.NoAction);
-            
-
-            builder.Entity<StoreQueue>().HasOne(x => x.Establishment).WithOne(x => x.Queue);
 
             base.OnModelCreating(builder);
         }
@@ -51,10 +48,11 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
         public DbSet<EssentialGood> EssentialGoods { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<StoreQueue> Queues { get; set; }
+        public DbSet<StoreQueue> StoreQueues { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
         public DbSet<Type> Types { get; set; }
+        public DbSet<ReservedQueue> ReservedQueues { get; set; }
 
     }
 }

@@ -54,10 +54,10 @@ namespace WebApi.Controllers.QController
             var current = currentResult.Result;
             if (current == null) return NotFound();
 
-            if (current.Quantity == sq.Quantity && current.IsUpdated == sq.IsUpdated) return NotModified();
+            if (current.Quantity == sq.Quantity) return NotModified();
 
             if (current.Quantity != sq.Quantity) current.Quantity = sq.Quantity;
-            if (current.IsUpdated != sq.IsUpdated) current.IsUpdated = sq.IsUpdated;
+            
 
             var updateResult = _bo.Update(current);
             if (!updateResult.Success) return InternalServerError();

@@ -12,11 +12,11 @@ namespace WebApi.Models.CommercialModelView
         public Guid Id { get; set; }
         public Guid RegionId { get; set; }
         public Guid CompanyId { get; set; }
-        public Guid QueueId { get; set; }
+        public Guid ReservedQueueId { get; set; }
 
         public Establishment ToEstablishment()
         {
-            return new Establishment(Address, OpeningHours, ClosingHours, ClosingDays, RegionId, CompanyId, QueueId);
+            return new Establishment(Address, OpeningHours, ClosingHours, ClosingDays, RegionId, CompanyId);
         }
 
         public static EstablishmentViewModel Parse(Establishment establishment)
@@ -29,8 +29,7 @@ namespace WebApi.Models.CommercialModelView
                 ClosingHours = establishment.ClosingHours,
                 ClosingDays = establishment.ClosingDays,
                 RegionId = establishment.RegionId,
-                CompanyId = establishment.CompanyId,
-                QueueId = establishment.QueueId
+                CompanyId = establishment.CompanyId               
             };
         }
     }

@@ -20,7 +20,7 @@ namespace WebApi.Controllers.QController
         public ActionResult Create([FromBody] EstablishmentViewModel vm)
         {
             var e = new Establishment(vm.Address, vm.OpeningHours, vm.ClosingHours, vm.ClosingDays, vm.RegionId,
-                vm.CompanyId, vm.QueueId);
+                vm.CompanyId);
 
             var res = _bo.Create(e);
             return res.Success ? Ok() : InternalServerError();

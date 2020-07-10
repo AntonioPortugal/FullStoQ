@@ -3,24 +3,25 @@ using Recodme.RD.FullStoQ.Data.Q;
 using Recodme.RD.FullStoQ.DataAccess.Q;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
 namespace Recodme.RD.FullStoQ.Business.Q
 {
-    public class StoreQueueBusinessObject
+    public class ReservedQueueBusinessObject
     {
-        private StoreQueueDataAccessObject _dao;
+        private ReservedQueueDataAccessObject _dao;
 
-        public StoreQueueBusinessObject()
+        public ReservedQueueBusinessObject()
         {
-            _dao = new StoreQueueDataAccessObject();
+            _dao = new ReservedQueueDataAccessObject();
 
         }
 
         #region C
 
-        public OperationResult Create(StoreQueue item)
+        public OperationResult Create(ReservedQueue item)
         {
             try
             {
@@ -35,7 +36,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
             }
 
         }
-        public async Task<OperationResult> CreateAsync(StoreQueue item)
+        public async Task<OperationResult> CreateAsync(ReservedQueue item)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
 
         #region R
 
-        public OperationResult<StoreQueue> Read(Guid id)
+        public OperationResult<ReservedQueue> Read(Guid id)
         {
             try
             {
@@ -68,19 +69,19 @@ namespace Recodme.RD.FullStoQ.Business.Q
                 var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
                 var result = _dao.Read(id);
                 transactionScope.Complete();
-                return new OperationResult<StoreQueue>() { Success = true, Result = result };
+                return new OperationResult<ReservedQueue>() { Success = true, Result = result };
 
             }
             catch (Exception e)
             {
-                return new OperationResult<StoreQueue>() { Success = false, Exception = e };
+                return new OperationResult<ReservedQueue>() { Success = false, Exception = e };
 
             }
 
 
         }
 
-        public async Task<OperationResult<StoreQueue>> ReadAsync(Guid id)
+        public async Task<OperationResult<ReservedQueue>> ReadAsync(Guid id)
         {
             try
             {
@@ -93,12 +94,12 @@ namespace Recodme.RD.FullStoQ.Business.Q
                 var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
                 await _dao.ReadAsync(id);
                 transactionScope.Complete();
-                return new OperationResult<StoreQueue>() { Success = true };
+                return new OperationResult<ReservedQueue>() { Success = true };
 
             }
             catch (Exception e)
             {
-                return new OperationResult<StoreQueue>() { Success = false, Exception = e };
+                return new OperationResult<ReservedQueue>() { Success = false, Exception = e };
 
             }
 
@@ -108,7 +109,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
 
         #region U
 
-        public OperationResult Update(StoreQueue item)
+        public OperationResult Update(ReservedQueue item)
         {
             try
             {
@@ -123,7 +124,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
             }
 
         }
-        public async Task<OperationResult> UpdateAsync(StoreQueue item)
+        public async Task<OperationResult> UpdateAsync(ReservedQueue item)
         {
             try
             {
@@ -143,7 +144,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
 
         #region D
 
-        public OperationResult Delete(StoreQueue item)
+        public OperationResult Delete(ReservedQueue item)
         {
             try
             {
@@ -189,7 +190,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
             }
 
         }
-        public async Task<OperationResult> DeleteAsync(StoreQueue item)
+        public async Task<OperationResult> DeleteAsync(ReservedQueue item)
         {
             try
             {
@@ -209,7 +210,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
 
         #region L
 
-        public OperationResult<List<StoreQueue>> List()
+        public OperationResult<List<ReservedQueue>> List()
         {
             try
             {
@@ -223,17 +224,17 @@ namespace Recodme.RD.FullStoQ.Business.Q
                 var result = _dao.List();
                 transactionScope.Complete();
 
-                return new OperationResult<List<StoreQueue>>() { Success = true, Result = result };
+                return new OperationResult<List<ReservedQueue>>() { Success = true, Result = result };
 
             }
             catch (Exception e)
             {
-                return new OperationResult<List<StoreQueue>>() { Success = false, Exception = e };
+                return new OperationResult<List<ReservedQueue>>() { Success = false, Exception = e };
 
             }
 
         }
-        public async Task<OperationResult<List<StoreQueue>>> ListAsync()
+        public async Task<OperationResult<List<ReservedQueue>>> ListAsync()
         {
             try
             {
@@ -247,16 +248,18 @@ namespace Recodme.RD.FullStoQ.Business.Q
                 var result = await _dao.ListAsync();
                 transactionScope.Complete();
 
-                return new OperationResult<List<StoreQueue>>() { Success = true, Result = result };
+                return new OperationResult<List<ReservedQueue>>() { Success = true, Result = result };
 
             }
             catch (Exception e)
             {
-                return new OperationResult<List<StoreQueue>>() { Success = false, Exception = e };
+                return new OperationResult<List<ReservedQueue>>() { Success = false, Exception = e };
 
             }
         }
 
         #endregion
+
     }
+
 }
