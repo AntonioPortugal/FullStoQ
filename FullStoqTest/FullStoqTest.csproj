@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <RootNamespace>Recodme.RD.FullStoQ.FullStoQTest</RootNamespace>
+
+    <AssemblyName>Recodme.RD.FullStoQ.FullStoQTest</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
