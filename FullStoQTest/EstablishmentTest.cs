@@ -5,7 +5,7 @@ using Recodme.RD.FullStoQ.Data.Commercial;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FullStoQTest
+namespace Recodme.RD.FullStoQ.FullStoQTest
 {
     [TestClass]
     public class EstablishmentTest

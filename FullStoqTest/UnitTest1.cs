@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Recodme.RD.FullStoQ.Business.Q;
 using Recodme.RD.FullStoQ.Data.Q;
 
-namespace FullStoqTest
+namespace Recodme.RD.FullStoQ.FullStoQTest
 {
     [TestClass]
     public class UnitTest1
