@@ -10,7 +10,7 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         [TestMethod]
         public void TestMethod1()
         {
-            var obj = new StoreQueueBusinessObject();
+            //var obj = new StoreQueueBusinessObject();
             //var result = new StoreQueue(234, true);
 
         }
