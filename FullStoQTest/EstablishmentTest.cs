@@ -71,7 +71,7 @@ namespace FullStoQTest
             objEst.Create(est);
 
             var res = objEst.Update(est);
-            
+
             Assert.IsTrue(res.Success);
         }
         #endregion
@@ -100,35 +100,34 @@ namespace FullStoQTest
         #endregion
 
         #region List
-    //    public void TestDeleteEstablishment()
-    //    {
-    //        var obj = new RegionBusinessObject();
-    //        var reg = new Region("Continental");
-    //        obj.Create(reg);
+        [TestMethod]
+        public void TestListEstablishment()
+        {
+            var obj = new RegionBusinessObject();
+            var reg = new Region("Continental");
+            obj.Create(reg);
 
-    //        var objCom = new CompanyBusinessObject();
-    //        var com = new Company("Quitanda da dona Luzia", 123456);
-    //        objCom.Create(com);
+            var objCom = new CompanyBusinessObject();
+            var com = new Company("Quitanda da dona Luzia", 123456);
+            objCom.Create(com);
 
-    //        var objEst = new EstablishmentBusinessObject();
-    //        var est = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
-    //            "20:00", "Domingo", reg.Id, com.Id);
-    //        objEst.Create(est);
+            var objEst = new EstablishmentBusinessObject();
+            var est1 = new Establishment("Rua da pitaia, numero 1234, Setubal", "07:00",
+                "20:00", "Domingo", reg.Id, com.Id);
+            objEst.Create(est1);
 
-    //        var ast = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
-    //"20:00", "Domingo", reg.Id, com.Id);
-    //        objEst.Create(ast);
-            
-    //        var ist = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
-    //"20:00", "Domingo", reg.Id, com.Id);
-    //        objEst.Create(ist);
+            var est2 = new Establishment("Rua da Manga, numero 10, Porto", "07:00",
+               "20:00", "Domingo", reg.Id, com.Id);
+            objEst.Create(est2);
 
-    //        var list = new List<Establishment>() { est, ast, ist };
+            var est3 = new Establishment("Rua do girassol, numero 134, Alentejo", "07:00",
+               "20:00", "Domingo", reg.Id, com.Id);
+            objEst.Create(est3);
 
-    //        var res = objEst.List(list);
+            var result = objEst.List();
 
-    //        Assert.IsTrue(res.Success);
-    //    }
+            Assert.IsTrue(result.Success);
+        }
         #endregion
     }
 }
