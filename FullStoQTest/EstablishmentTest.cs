@@ -2,12 +2,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Recodme.RD.FullStoQ.Business.Commercial;
 using Recodme.RD.FullStoQ.Data.Commercial;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FullStoQTest
 {
     [TestClass]
-    public class TypeTest
+    public class EstablishmentTest
     {
         #region Create
         [TestMethod]
@@ -24,9 +25,9 @@ namespace FullStoQTest
             var objEst = new EstablishmentBusinessObject();
             var est = new Establishment("Avenida da liberdade, numero 230, Lisboa", "08:00", "20:00", "Domingo",
                 reg.Id, com.Id);
-            var result = objEst.Create(est);
+            var re = objEst.Create(est);
 
-            Assert.IsTrue(result.Success);
+            Assert.IsTrue(re.Success);
         }
         #endregion
 
@@ -47,13 +48,32 @@ namespace FullStoQTest
                 "20:00", "Domingo", reg.Id, com.Id);
             objEst.Create(est);
 
-            var result = obj.Read(est.Id);
-            Assert.IsTrue(result.Success);
+            var res = obj.Read(est.Id);
+            Assert.IsTrue(res.Success);
         }
         #endregion
 
-        #region Update         
-        
+        #region Update
+        [TestMethod]
+        public void TestUpdateEstablishment()
+        {
+            var obj = new RegionBusinessObject();
+            var reg = new Region("Continental");
+            obj.Create(reg);
+
+            var objCom = new CompanyBusinessObject();
+            var com = new Company("Quitanda da dona Luzia", 123456);
+            objCom.Create(com);
+
+            var objEst = new EstablishmentBusinessObject();
+            var est = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+                "20:00", "Domingo", reg.Id, com.Id);
+            objEst.Create(est);
+
+            var res = objEst.Update(est);
+            
+            Assert.IsTrue(res.Success);
+        }
         #endregion
 
         #region Delete
@@ -69,45 +89,46 @@ namespace FullStoQTest
             objCom.Create(com);
 
             var objEst = new EstablishmentBusinessObject();
-            var est = new Establishment("Avenida da liberdade, numero 230, Lisboa", "08:00", "20:00", "Domingo",
-                reg.Id, com.Id);
+            var est = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+                "20:00", "Domingo", reg.Id, com.Id);
             objEst.Create(est);
 
-            var result = obj.Delete(est.Id);
-            Assert.IsTrue(result.Success);
+            var res = objEst.Delete(est);
+
+            Assert.IsTrue(res.Success);
         }
         #endregion
 
         #region List
-        [TestMethod]
-        public void TestListEstablishment()
-        {
-            var obj = new RegionBusinessObject();
-            var reg = new Region("Continental");
-            obj.Create(reg);
+    //    public void TestDeleteEstablishment()
+    //    {
+    //        var obj = new RegionBusinessObject();
+    //        var reg = new Region("Continental");
+    //        obj.Create(reg);
 
-            var objCom = new CompanyBusinessObject();
-            var com = new Company("Quitanda da dona Luzia", 123456);
-            objCom.Create(com);
+    //        var objCom = new CompanyBusinessObject();
+    //        var com = new Company("Quitanda da dona Luzia", 123456);
+    //        objCom.Create(com);
 
-            var objEst = new EstablishmentBusinessObject();
-            var est1 = new Establishment("Avenida da liberdade, numero 230, Lisboa", "08:00", "20:00", "Domingo",
-                reg.Id, com.Id);
-            objEst.Create(est1);
+    //        var objEst = new EstablishmentBusinessObject();
+    //        var est = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+    //            "20:00", "Domingo", reg.Id, com.Id);
+    //        objEst.Create(est);
 
-            var est2 = new Establishment("Avenida Brasil, numero 240, Lisboa", "08:00", "20:00", "Domingo",
-               reg.Id, com.Id);
-            objEst.Create(est2);
+    //        var ast = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+    //"20:00", "Domingo", reg.Id, com.Id);
+    //        objEst.Create(ast);
+            
+    //        var ist = new Establishment("Rua da pitaia, numero 1234, Açores", "07:00",
+    //"20:00", "Domingo", reg.Id, com.Id);
+    //        objEst.Create(ist);
 
-            var est3 = new Establishment("Avenida da liberdade, numero 230, Lisboa", "08:00", "20:00", "Domingo",
-               reg.Id, com.Id);
-            objEst.Create(est2);
+    //        var list = new List<Establishment>() { est, ast, ist };
 
+    //        var res = objEst.List(list);
 
-            var result = objEst.List();
-
-            Assert.IsTrue(result.Success);
-        }
+    //        Assert.IsTrue(res.Success);
+    //    }
         #endregion
     }
 }
