@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +24,19 @@ namespace WebApi.Controllers
         {
             _config = config;
         }
+
+        [HttpGet("CreateRole")]
         public void CreateRole(string roleName)
         {
             var role = new IdentityRole();
             role.Name = roleName;
+        }
+
+        [HttpGet("Secret")]
+        [Authorize]
+        public ActionResult<string> Secret()
+        {
+            return "All right, keep your secrets then";
         }
 
         [HttpGet]
