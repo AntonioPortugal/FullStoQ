@@ -50,8 +50,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
 
         public async Task<Establishment> ReadAsync(Guid id)
         {
-            Func<Establishment> establishment = () => _context.Establishments.FirstOrDefault(x => x.Id == id);
-            return await new Task<Establishment>(establishment);
+            return await _context.Establishments.FirstOrDefaultAsync(x => x.Id == id);
         }
         #endregion
 
