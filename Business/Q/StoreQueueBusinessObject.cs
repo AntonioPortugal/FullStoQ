@@ -260,5 +260,56 @@ namespace Recodme.RD.FullStoQ.Business.Q
         }
 
         #endregion
+
+        #region LUD
+        public OperationResult<List<StoreQueue>> ListNotDeleted()
+        {
+            try
+            {
+                var transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var result = _dao.List().Where(x => !x.IsDeleted).ToList();
+
+                transactionScope.Complete();
+
+                return new OperationResult<List<StoreQueue>>() { Success = true, Result = result };
+
+            }
+            catch (Exception e)
+            {
+                return new OperationResult<List<StoreQueue>>() { Success = false, Exception = e };
+
+            }
+
+        }
+        public async Task<OperationResult<List<StoreQueue>>> ListNotDeletedAsync()
+        {
+            try
+            {
+                var transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var res = await _dao.ListAsync();
+                var result = res.Where(x => !x.IsDeleted).ToList();
+                transactionScope.Complete();
+                return new OperationResult<List<StoreQueue>>() { Success = true, Result = result };
+
+            }
+            catch (Exception e)
+            {
+                return new OperationResult<List<StoreQueue>>() { Success = false, Exception = e };
+
+            }
+        }
+        #endregion
     }
 }
