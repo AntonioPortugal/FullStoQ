@@ -113,7 +113,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
             try
             {
                 _dao.Update(item);
-                return new OperationResult() { Success = true };
+                return new OperationResult() { Success = true }; 
 
             }
             catch (Exception e)

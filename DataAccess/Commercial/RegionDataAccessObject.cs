@@ -11,20 +11,22 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
 {
     public class RegionDataAccessObject
     {
-        private Context _context;
+        //private Context _context;
 
         public RegionDataAccessObject()
         {
-            _context = new Context();
+            //_context = new Context();
         }
 
         #region List
         public List<Region> List()
         {
+            using var _context = new Context();
             return _context.Set<Region>().ToList();
         }
         public async Task<List<Region>> ListAsync()
         {
+            using var _context = new Context();
             return await _context.Set<Region>().ToListAsync();
         }
         #endregion
@@ -32,12 +34,14 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
         #region Create
         public void Create(Region region)
         {
+            using var _context = new Context();
             _context.Regions.Add(region);
             _context.SaveChanges();
         }
 
         public async Task CreateAsync(Region region)
         {
+            using var _context = new Context();
             await _context.Regions.AddAsync(region);
             await _context.SaveChangesAsync();
         }
@@ -46,11 +50,13 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
         #region Read
         public Region Read(Guid id)
         {
+            using var _context = new Context();
             return _context.Regions.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<Region> ReadAsync(Guid id)
         {
+            using var _context = new Context();
             Func<Region> region = () => _context.Regions.FirstOrDefault(x => x.Id == id);
             return await new Task<Region>(region);
         }
@@ -59,12 +65,14 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
         #region Update
         public void Update(Region region)
         {
+            using var _context = new Context();
             _context.Entry(region).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
         public async Task UpdateAsync(Region region)
         {
+            using var _context = new Context();
             _context.Entry(region).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
