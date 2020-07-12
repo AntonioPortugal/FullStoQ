@@ -1,8 +1,4 @@
-﻿using Recodme.RD.FullStoQ.Business.Commercial;
-using Recodme.RD.FullStoQ.Business.Q;
-using Recodme.RD.FullStoQ.Data.Commercial;
-using Recodme.RD.FullStoQ.Data.Q;
-using Recodme.RD.FullStoQ.DataAccess.Contexts;
+﻿using Recodme.RD.FullStoQ.DataAccess.Contexts;
 
 namespace App
 {

@@ -38,7 +38,6 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
             var resGet = bo.Read(est.Id);
             Assert.IsTrue(resGet.Success && resGet.Result != null);
         }
-
         #endregion
 
         #region Update
@@ -84,9 +83,22 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         [TestMethod]
         public void TestListEstablishment()
         {
-            var objEst = new EstablishmentBusinessObject();
-            var resList = objEst.List();
+            var bo = new EstablishmentBusinessObject();
+            var resList = bo.List();
             Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+        }
+        #endregion
+
+        #region Assync 
+        [TestMethod]
+        public void TestDeleteEstablishmentAsync()
+        {
+            ContextSeeder.Seed();
+            var bo = new EstablishmentBusinessObject();
+            var resList = bo.ListAsync().Result;
+            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
+            resList = bo.ListNotDeletedAsync().Result;
+            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.Count == 0);
         }
         #endregion
     }
