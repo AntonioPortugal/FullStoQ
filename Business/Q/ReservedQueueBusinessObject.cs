@@ -262,6 +262,56 @@ namespace Recodme.RD.FullStoQ.Business.Q
 
         #endregion
 
+        #region List Not Deleted
+        public OperationResult<List<ReservedQueue>> ListNotDeleted()
+        {
+            try
+            {
+                var transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var result = _dao.List().Where(x => !x.IsDeleted).ToList();
+
+                transactionScope.Complete();
+
+                return new OperationResult<List<ReservedQueue>>() { Success = true, Result = result };
+
+            }
+            catch (Exception e)
+            {
+                return new OperationResult<List<ReservedQueue>>() { Success = false, Exception = e };
+
+            }
+
+        }
+        public async Task<OperationResult<List<ReservedQueue>>> ListNotDeletedAsync()
+        {
+            try
+            {
+                var transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var res = await _dao.ListAsync();
+                var result = res.Where(x => !x.IsDeleted).ToList();
+                transactionScope.Complete();
+                return new OperationResult<List<ReservedQueue>>() { Success = true, Result = result };
+
+            }
+            catch (Exception e)
+            {
+                return new OperationResult<List<ReservedQueue>>() { Success = false, Exception = e };
+
+            }
+        }
+        #endregion
     }
 
 }
