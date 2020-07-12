@@ -10,22 +10,20 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
 {
     public class EstablishmentDataAccessObject 
     {
-        //private Context _context;
+        private Context _context;
 
         public EstablishmentDataAccessObject()
         {
-            //_context = new Context();
+            _context = new Context();
         }
 
         #region List
         public List<Establishment> List()
         {
-            using var _context = new Context();
             return _context.Set<Establishment>().ToList();
         }
         public async Task<List<Establishment>> ListAsync()
         {
-            using var _context = new Context();
             return await _context.Set<Establishment>().ToListAsync();
         }
         #endregion
@@ -33,14 +31,12 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
         #region Create
         public void Create(Establishment establishment)
         {
-            using var _context = new Context();
             _context.Establishments.Add(establishment);
             _context.SaveChanges();
         }
 
         public async Task CreateAsync(Establishment establishment)
         {
-            using var _context = new Context();
             await _context.Establishments.AddAsync(establishment);
             await _context.SaveChangesAsync();
         }
@@ -49,29 +45,24 @@ namespace Recodme.RD.FullStoQ.DataAccess.Commercial
         #region Read
         public Establishment Read(Guid id)
         {
-            using var _context = new Context();
             return _context.Establishments.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task<Establishment> ReadAsync(Guid id)
         {
-            using var _context = new Context();
-            Func<Establishment> establishment = () => _context.Establishments.FirstOrDefault(x => x.Id == id);
-            return await new Task<Establishment>(establishment);
+            return await _context.Establishments.FirstOrDefaultAsync(x => x.Id == id);
         }
         #endregion
 
         #region Update
         public void Update(Establishment establishment)
         {
-            using var _context = new Context();
             _context.Entry(establishment).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
         public async Task UpdateAsync(Establishment establishment)
         {
-            using var _context = new Context();
             _context.Entry(establishment).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }

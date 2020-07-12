@@ -3,125 +3,69 @@ using Recodme.RD.FullStoQ.Business.Commercial;
 using Recodme.RD.FullStoQ.Business.Q;
 using Recodme.RD.FullStoQ.Data.Commercial;
 using Recodme.RD.FullStoQ.Data.Q;
-using System;
+using Recodme.RD.FullStoQ.DataAccess.Seeders;
+using System.Linq;
 
-namespace FullStoQTest
+namespace Recodme.RD.FullStoQ.FullStoQTest
 {
     [TestClass]
     public class StoreQueueTest
     {
         [TestMethod]
-        public void TestCreateStoreQueue()
+        public void TestCreateAndReadStoreQueues()
         {
-            var objReg = new RegionBusinessObject();
-            var reg = new Region("Continental");
-            objReg.Create(reg);
-
-            var objCom = new CompanyBusinessObject();
-            var com = new Company("Quitanda da dona Luzia", 123456);
-            objCom.Create(com);
-
-            var objEst = new EstablishmentBusinessObject();
-            var est = new Establishment("Avenida Augusta, numero 1910, Lisboa", "07:00", "20:00", 
-                "Domingo", reg.Id, com.Id);
-            objEst.Create(est);
-
-            var objSq = new StoreQueueBusinessObject();
-            var sq = new StoreQueue(2,est.Id);
-            var res = objSq.Create(sq);
-
-            Assert.IsTrue(res.Success);
+            ContextSeeder.Seed();
+            var bo = new StoreQueueBusinessObject();
+            var est = bo.List().Result.First();
+            var reg = new StoreQueue(2, est.Id);
+            var resCreate = bo.Create(reg);
+            var resGet = bo.Read(reg.Id);
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
 
         [TestMethod]
-        public void TestReadStoreQueue()
+        public void TestListStoreQueues()
         {
-            var objReg = new RegionBusinessObject();
-            var reg = new Region("Continental");
-            objReg.Create(reg);
-
-            var objCom = new CompanyBusinessObject();
-            var com = new Company("Quitanda da dona Luzia", 123456);
-            objCom.Create(com);
-
-            var objEst = new EstablishmentBusinessObject();
-            var est = new Establishment("Avenida Augusta, numero 1910, Lisboa", "07:00", "20:00",
-                "Domingo", reg.Id, com.Id);
-            objEst.Create(est);
-
-            var objSq = new StoreQueueBusinessObject();
-            var sq = new StoreQueue(2, est.Id);
-            var res = objSq.Create(sq);
-
-            var result = objSq.Read(com.Id);
-
-
-            Assert.IsTrue(result.Success);
+            ContextSeeder.Seed();
+            var bo = new StoreQueueBusinessObject();
+            var resList = bo.List();
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
         }
-
 
         [TestMethod]
-        public void TestUpdateStoreQueue()
+        public void TestUpdateStoreQueues()
         {
-            var objSq = new StoreQueueBusinessObject();
-            var id = Guid.Parse("122E641B-C9B6-4143-9A5A-02605202ADAC");
-            var sq = objSq.Read(id).Result;
-            sq.Quantity = 21;
-            var result = objSq.Update(sq);
+            ContextSeeder.Seed();
+            var bo = new StoreQueueBusinessObject();
+            var resultList = bo.List().Result.First();
+            var item = new StoreQueue(3, resultList.Id);
+            item.Quantity = 4;
+            
 
-            Assert.IsTrue(result.Success);
         }
-
 
         [TestMethod]
-        public void TestDeleteStoreQueue()
+        public void TestDeleteStoreQueues()
         {
-            var objReg = new RegionBusinessObject();
-            var reg = new Region("Continental");
-            objReg.Create(reg);
-
-            var objCom = new CompanyBusinessObject();
-            var com = new Company("Quitanda da dona Luzia", 123456);
-            objCom.Create(com);
-
-            var objEst = new EstablishmentBusinessObject();
-            var est = new Establishment("Avenida Augusta, numero 1910, Lisboa", "07:00", "20:00",
-                "Domingo", reg.Id, com.Id);
-            objEst.Create(est);
-
-            var objSq = new StoreQueueBusinessObject();
-            var sq = new StoreQueue(2, est.Id);
-            objSq.Create(sq);
-
-            var result = objSq.Delete(com.Id);
-
-
-            Assert.IsTrue(result.Success);
+            ContextSeeder.Seed();
+            var bo = new StoreQueueBusinessObject();
+            var resList = bo.List();
+            var resDelete = bo.Delete(resList.Result.First().Id);
+            var resNotList = bo.List().Result.Where(x => !x.IsDeleted).ToList();
+            Assert.IsTrue(resDelete.Success && resNotList.Count == 0);
         }
+
+        #region List
 
         [TestMethod]
         public void TestListStoreQueue()
         {
-            var objReg = new RegionBusinessObject();
-            var reg = new Region("Continental");
-            objReg.Create(reg);
+            
+            //var res = objSq.List();
+            //Assert.IsTrue(res.Success);
 
-            var objCom = new CompanyBusinessObject();
-            var com = new Company("Quitanda da dona Luzia", 123456);
-            objCom.Create(com);
 
-            var objEst = new EstablishmentBusinessObject();
-            var est = new Establishment("Avenida Augusta, numero 1910, Lisboa", "07:00", "20:00",
-                "Domingo", reg.Id, com.Id);
-            objEst.Create(est);
-
-            var objSq = new StoreQueueBusinessObject();
-            var sq = new StoreQueue(2, est.Id);
-            objSq.Create(sq);
-
-            var result = objSq.List();
-
-            Assert.IsTrue(result.Success);
         }
+        #endregion
     }
 }

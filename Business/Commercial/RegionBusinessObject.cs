@@ -3,6 +3,7 @@ using Recodme.RD.FullStoQ.Data.Commercial;
 using Recodme.RD.FullStoQ.DataAccess.Commercial;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -10,7 +11,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
 {
     public class RegionBusinessObject
     {
-        private RegionDataAccessObject _dao;
+        private readonly RegionDataAccessObject _dao;
 
         public RegionBusinessObject()
         {
@@ -18,7 +19,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
 
         }
 
-        #region C
+        #region Create
 
         public OperationResult Create(Region item)
         {
@@ -53,7 +54,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
 
         #endregion
 
-        #region R
+        #region Read
 
         public OperationResult<Region> Read(Guid id)
         {
@@ -65,7 +66,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
 
                 };
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
                 var result = _dao.Read(id);
                 transactionScope.Complete();
                 return new OperationResult<Region>() { Success = true, Result = result };
@@ -90,10 +91,10 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
 
                 };
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                await _dao.ReadAsync(id);
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var res = await _dao.ReadAsync(id);
                 transactionScope.Complete();
-                return new OperationResult<Region>() { Success = true };
+                return new OperationResult<Region>() { Success = true, Result = res };
 
             }
             catch (Exception e)
@@ -106,7 +107,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
 
         #endregion
 
-        #region U
+        #region Update
 
         public OperationResult Update(Region item)
         {
@@ -141,7 +142,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
 
         #endregion
 
-        #region D
+        #region Delete
 
         public OperationResult Delete(Region item)
         {
@@ -207,7 +208,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
 
         #endregion
 
-        #region L
+        #region List
 
         public OperationResult<List<Region>> List()
         {
@@ -219,11 +220,12 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
                 };
 
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                _dao.List();
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var result = _dao.List();
+
                 transactionScope.Complete();
 
-                return new OperationResult<List<Region>>() { Success = true };
+                return new OperationResult<List<Region>>() { Success = true, Result = result };
 
             }
             catch (Exception e)
@@ -243,11 +245,10 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
                 };
 
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                await _dao.ListAsync();
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var res = await _dao.ListAsync();
                 transactionScope.Complete();
-
-                return new OperationResult<List<Region>>() { Success = true };
+                return new OperationResult<List<Region>>() { Success = true, Result = res };
 
             }
             catch (Exception e)
@@ -257,6 +258,57 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
             }
         }
 
+        #endregion
+
+        #region List Not Deleted
+        public OperationResult<List<Region>> ListNotDeleted()
+        {
+            try
+            {
+                var transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var result = _dao.List().Where(x => !x.IsDeleted).ToList();
+
+                transactionScope.Complete();
+
+                return new OperationResult<List<Region>>() { Success = true, Result = result };
+
+            }
+            catch (Exception e)
+            {
+                return new OperationResult<List<Region>>() { Success = false, Exception = e };
+
+            }
+
+        }
+        public async Task<OperationResult<List<Region>>> ListNotDeletedAsync()
+        {
+            try
+            {
+                var transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = IsolationLevel.ReadCommitted,
+                    Timeout = TimeSpan.FromSeconds(30)
+                };
+
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var res = await _dao.ListAsync();
+                var result = res.Where(x => !x.IsDeleted).ToList();
+                transactionScope.Complete();
+                return new OperationResult<List<Region>>() { Success = true, Result = result };
+
+            }
+            catch (Exception e)
+            {
+                return new OperationResult<List<Region>>() { Success = false, Exception = e };
+
+            }
+        }
         #endregion
     }
 }

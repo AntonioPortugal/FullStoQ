@@ -10,7 +10,9 @@ namespace App
     {
         static void Main(string[] args)
         {
-            
+            var dao = new Context();
+            dao.Database.EnsureCreated();
+            //dao.Database.EnsureDeleted();
 
             //var obj = new StoreQueueBusinessObject();
             //var x = new StoreQueue(234, true);

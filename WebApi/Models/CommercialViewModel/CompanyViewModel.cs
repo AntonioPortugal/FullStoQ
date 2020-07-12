@@ -10,7 +10,7 @@ namespace WebApi.Models.CommercialViewModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public int VatNumber { get; set; }
+        public long VatNumber { get; set; }
 
         public Company ToCompany()
         {

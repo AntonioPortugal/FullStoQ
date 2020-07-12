@@ -5,14 +5,14 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseController : ControllerBase
+    public abstract class BaseController : ControllerBase
     {
-        public StatusCodeResult InternalServerError()
+        protected StatusCodeResult InternalServerError()
         {
             return StatusCode((int)HttpStatusCode.InternalServerError);
         }
 
-        public StatusCodeResult NotModified()
+        protected StatusCodeResult NotModified()
         {
             return StatusCode((int)HttpStatusCode.NotModified);
         }

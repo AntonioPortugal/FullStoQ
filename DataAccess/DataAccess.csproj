@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Recodme.RD.FullStoQ.DataAccess</AssemblyName>
     <RootNamespace>Recodme.RD.FullStoQ.DataAccess</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

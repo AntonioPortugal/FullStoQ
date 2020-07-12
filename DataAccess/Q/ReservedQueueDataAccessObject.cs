@@ -46,8 +46,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 
         public async Task<ReservedQueue> ReadAsync(Guid id)
         {
-            return await
-                new Task<ReservedQueue>(() => _context.ReservedQueues.FirstOrDefault(x => x.Id == id));
+            return await _context.ReservedQueues.FirstOrDefaultAsync(x => x.Id == id);
 
         }
 

@@ -10,18 +10,17 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 {
     public class StoreQueueDataAccessObject
     {
-        //private Context _context;
+        private Context _context;
 
         public StoreQueueDataAccessObject()
         {
-            /*_context = new Context()*/;
+            _context = new Context();
         }
 
         #region C
 
         public void Create(StoreQueue storeQueue)
         {
-            using var _context = new Context();
             _context.StoreQueues.Add(storeQueue);
             _context.SaveChanges();
 
@@ -29,9 +28,9 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 
         public async Task CreateAsync(StoreQueue storeQueue)
         {
-            using var _context = new Context();
             await _context.StoreQueues.AddAsync(storeQueue);
             await _context.SaveChangesAsync();
+
         }
 
         #endregion
@@ -40,16 +39,13 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 
         public StoreQueue Read(Guid id)
         {
-            using var _context = new Context();
             return _context.StoreQueues.FirstOrDefault(x => x.Id == id);
 
         }
 
         public async Task<StoreQueue> ReadAsync(Guid id)
         {
-            using var _context = new Context();
-            return await
-                new Task<StoreQueue>(() => _context.StoreQueues.FirstOrDefault(x => x.Id == id));
+            return await _context.StoreQueues.FirstOrDefaultAsync(x => x.Id == id);
 
         }
 
@@ -59,16 +55,13 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
 
         public void Update(StoreQueue storeQueue)
         {
-            using var _context = new Context(); 
             _context.Entry(storeQueue).State = EntityState.Modified;
             _context.SaveChanges();
-            _context.Database.CloseConnection();
 
         }
 
         public async Task UpdateAsync(StoreQueue storeQueue)
         {
-            using var _context = new Context();
             _context.Entry(storeQueue).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
@@ -113,12 +106,10 @@ namespace Recodme.RD.FullStoQ.DataAccess.Q
         #region List
         public List<StoreQueue> List()
         {
-            using var _context = new Context();
             return _context.Set<StoreQueue>().ToList();
         }
         public async Task<List<StoreQueue>> ListAsync()
         {
-            using var _context = new Context();
             return await _context.Set<StoreQueue>().ToListAsync();
         }
         #endregion

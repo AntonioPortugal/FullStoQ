@@ -23,8 +23,7 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddCors();
+            //services.AddCors();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer((options) =>
                 {
@@ -41,21 +40,16 @@ namespace WebApi
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                     };
                 });
-            services.AddSwaggerGen(
-                x => x.SwaggerDoc("v1", new OpenApiInfo() { Title = "FullStoQ", Version = "v1" })
-                );
+
+            services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo() { Title = "FullStoQ", Version = "v1" }));
+
+            services.AddControllersWithViews();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            var swaggerOptions = new SwaggerOptions();
-            Configuration.GetSection(nameof(swaggerOptions)).Bind(swaggerOptions);
-
-            app.UseSwagger(options => options.RouteTemplate = swaggerOptions.JsonRoute);
-
-            app.UseSwaggerUI(options => options.SwaggerEndpoint("../swagger/v1/swagger.json", "MyAPI V1"));
-
+        {            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -67,12 +61,15 @@ namespace WebApi
                 app.UseHsts();
             }
 
-
+            var swaggerOptions = new SwaggerOptions();
+            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);        
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
+
+            app.UseSwagger(options => options.RouteTemplate = swaggerOptions.JsonRoute);
+            app.UseSwaggerUI(options => options.SwaggerEndpoint(swaggerOptions.UiEndpoint, swaggerOptions.ApiDescription));
 
             app.UseAuthentication();
 
