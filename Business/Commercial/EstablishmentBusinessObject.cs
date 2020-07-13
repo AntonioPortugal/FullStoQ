@@ -1,11 +1,11 @@
 ﻿using Recodme.RD.FullStoQ.Business.OperationResults;
+using Recodme.RD.FullStoQ.Data.Commercial;
 using Recodme.RD.FullStoQ.DataAccess.Commercial;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
-using System.Collections.Generic;
-using Recodme.RD.FullStoQ.Data.Commercial;
-using System.Linq;
 
 namespace Recodme.RD.FullStoQ.Business.Commercial
 {
@@ -15,7 +15,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
         public EstablishmentBusinessObject()
         {
             _dao = new EstablishmentDataAccessObject();
-        }    
+        }
 
         #region List
         public OperationResult<List<Establishment>> List()
@@ -28,11 +28,11 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
                 };
                 using var ts = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                
-                var result = _dao.List().Where(x => !x.IsDeleted).ToList();
+
+                var result = _dao.List();
                 ts.Complete();
                 return new OperationResult<List<Establishment>>() { Success = true, Result = result };
-                
+
             }
             catch (Exception e)
             {
@@ -51,11 +51,10 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                 };
                 using var ts = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
 
-                var res = await _dao.ListAsync();
-                var result = res.Where(x => !x.IsDeleted).ToList();
+                var result = await _dao.ListAsync();
                 ts.Complete();
                 return new OperationResult<List<Establishment>>() { Success = true, Result = result };
-                
+
             }
             catch (Exception e)
             {
@@ -104,11 +103,11 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
                 };
                 using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                
+
                 var res = _dao.Read(id);
                 transactionScope.Complete();
                 return new OperationResult<Establishment>() { Success = true, Result = res };
-                
+
             }
             catch (Exception e)
             {
@@ -125,7 +124,7 @@ namespace Recodme.RD.FullStoQ.Business.Commercial
                     Timeout = TimeSpan.FromSeconds(30)
                 };
                 using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                
+
                 var res = await _dao.ReadAsync(id);
                 transactionScope.Complete();
                 return new OperationResult<Establishment>() { Success = true, Result = res };
