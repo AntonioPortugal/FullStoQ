@@ -9,34 +9,44 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
     [TestClass]
     public class EstablishmentTest
     {
-        #region Create 
+        #region Create and Read
         [TestMethod]
-        public void TestCreateEstablishment()
+        public void TestCreateReadEstablishment()
         {
             ContextSeeder.Seed();
             var boReg = new RegionBusinessObject();
-            var boComp = new CompanyBusinessObject();
             var reg1 = boReg.List().Result.First();
+
+            var boComp = new CompanyBusinessObject();           
             var com1 = boComp.List().Result.First();
+
             var bo = new EstablishmentBusinessObject();
             var est = new Establishment("Avenida da liberdade, numero 1029, Lisboa", "09:00", "20:00", "Domingo", reg1.Id, com1.Id);
             var resCreate = bo.Create(est);
-            Assert.IsTrue(resCreate.Success);
+            var resGet = bo.Read(est.Id);
+
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
         #endregion
 
-        #region Read
-        public void TestReadEstablishment()
+        #region Create and Read Assync
+        [TestMethod]
+        public void TestCreateAndReadEstablishmentAsync()
         {
             ContextSeeder.Seed();
+            
             var boReg = new RegionBusinessObject();
-            var boComp = new CompanyBusinessObject();
             var reg1 = boReg.List().Result.First();
+
+            var boComp = new CompanyBusinessObject();            
             var com1 = boComp.List().Result.First();
+
             var bo = new EstablishmentBusinessObject();
             var est = new Establishment("Avenida da liberdade, numero 1029, Lisboa", "09:00", "20:00", "Domingo", reg1.Id, com1.Id);
-            var resGet = bo.Read(est.Id);
-            Assert.IsTrue(resGet.Success && resGet.Result != null);
+            var resCreate = bo.CreateAsync(est).Result;
+            var resGet = bo.ReadAsync(est.Id).Result;
+
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
         #endregion
 
@@ -45,12 +55,14 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         public void TestUpdateEstablishment()
         {
             ContextSeeder.Seed();
+
             var boReg = new RegionBusinessObject();
-            var boComp = new CompanyBusinessObject();
             var reg1 = boReg.List().Result.First();
+
+            var boComp = new CompanyBusinessObject();            
             var com1 = boComp.List().Result.First();
-            var bo = new EstablishmentBusinessObject();
-            var est = new Establishment("Avenida da liberdade, numero 1029, Lisboa", "09:00", "20:00", "Domingo", reg1.Id, com1.Id);
+
+            var bo = new EstablishmentBusinessObject();           
             var resList = bo.List();
             var item = resList.Result.FirstOrDefault();
             item.Address = "Rua Augusta, n 1213, Lisboa";
@@ -60,6 +72,7 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
             Assert.IsTrue(resUpdate.Success && resNotList.First().Address == "Rua Augusta, n 1213, Lisboa");
         }
         #endregion
+
 
         #region Delete
         [TestMethod]
@@ -102,28 +115,7 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
         #endregion
 
-        #region Assync Update
-        [TestMethod]
-        public void TestUpdateEstablishmentAsync()
-        {
-            ContextSeeder.Seed();
-            var mbo = new EstablishmentBusinessObject();
-            var resList = mbo.List();
-            var item = resList.Result.FirstOrDefault();
 
-            var newEstablishment = new Establishment("Rua Magnolia numero", 4522220);
-
-            item.Name = newEstablishment.Name;
-            item.VatNumber = newEstablishment.VatNumber;
-
-
-            var resUpdate = mbo.UpdateAsync(item).Result;
-            resList = mbo.ListAsync().Result;
-
-            Assert.IsTrue(resList.Success && resUpdate.Success &&
-                resList.Result.First().Name == newEstablishment.Name &&
-                resList.Result.First().VatNumber == newEstablishment.VatNumber);
-        }
     }
 }
 
