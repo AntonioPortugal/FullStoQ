@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace Recodme.RD.FullStoQ.Data.Goods
 {
-    public class Type : NamedEntity
+    public class Category : NamedEntity
     {
         public virtual ICollection<EssentialGood> EssentialGoods { get; set; }
 
-        public Type(string name) : base(name)
+        public Category(string name) : base(name)
         {
         }
 
-        public Type(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name)
+        public Category(Guid id, DateTime createdAt, DateTime updatedAt, bool isDeleted, string name)
             : base(id, createdAt, updatedAt, isDeleted, name)
         {
         }

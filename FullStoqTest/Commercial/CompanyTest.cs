@@ -4,7 +4,7 @@ using Recodme.RD.FullStoQ.Data.Commercial;
 using Recodme.RD.FullStoQ.DataAccess.Seeders;
 using System.Linq;
 
-namespace Recodme.RD.FullStoQ.FullStoQTest
+namespace Recodme.RD.FullStoQ.FullStoQTest.Commercial
 {
     [TestClass]
     public class CompanyTest
