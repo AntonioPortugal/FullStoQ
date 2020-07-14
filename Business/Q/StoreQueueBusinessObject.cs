@@ -66,7 +66,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
                     Timeout = TimeSpan.FromSeconds(30)
 
                 };
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
                 var result = _dao.Read(id);
                 transactionScope.Complete();
                 return new OperationResult<StoreQueue>() { Success = true, Result = result };
@@ -91,10 +91,10 @@ namespace Recodme.RD.FullStoQ.Business.Q
                     Timeout = TimeSpan.FromSeconds(30)
 
                 };
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
-                await _dao.ReadAsync(id);
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                var result = await _dao.ReadAsync(id);
                 transactionScope.Complete();
-                return new OperationResult<StoreQueue>() { Success = true };
+                return new OperationResult<StoreQueue>() { Success = true, Result = result };
 
             }
             catch (Exception e)
@@ -220,7 +220,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
                     Timeout = TimeSpan.FromSeconds(30)
                 };
 
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
                 var result = _dao.List().Where(x => !x.IsDeleted).ToList();
                 transactionScope.Complete();
 
@@ -244,7 +244,7 @@ namespace Recodme.RD.FullStoQ.Business.Q
                     Timeout = TimeSpan.FromSeconds(30)
                 };
 
-                var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
+                using var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled);
                 var res = await _dao.ListAsync();
                 var result = res.Where(x => !x.IsDeleted).ToList();
                 transactionScope.Complete();
