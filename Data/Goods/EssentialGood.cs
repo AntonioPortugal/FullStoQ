@@ -34,10 +34,10 @@ namespace Recodme.RD.FullStoQ.Data.Goods
             }
         }
 
-        private float _price;
+        private double _price;
 
         [Required]
-        public float Price
+        public double Price
         {
             get => _price;
             set
@@ -47,11 +47,10 @@ namespace Recodme.RD.FullStoQ.Data.Goods
             }
         }
 
-        private float _weight;
-        private string v;
+        private double _weight;
 
         [Required]
-        public float Weight
+        public double Weight
         {
             get => _weight;
             set
@@ -77,7 +76,7 @@ namespace Recodme.RD.FullStoQ.Data.Goods
         public Guid EstablishmentId { get; set; }
         public virtual Establishment Establishment { get; set; }
 
-        public EssentialGood(string name, bool isReserved, string barCode, float price, float weight)
+        public EssentialGood(string name, bool isReserved, string barCode, double price, double weight)
             : base(name)
         {
             IsReserved = isReserved;
@@ -87,18 +86,13 @@ namespace Recodme.RD.FullStoQ.Data.Goods
         }
 
         public EssentialGood(Guid id, DateTime createdAt, DateTime ReservedAt, bool isDeleted, 
-            string name, bool isReserved, string barCode, float price, float weight) 
+            string name, bool isReserved, string barCode, double price, double weight) 
             : base(id, createdAt, ReservedAt, isDeleted, name)
         {
             IsReserved = isReserved;
             BarCode = barCode;
             Price = price;
             Weight = weight;
-        }
-
-        public EssentialGood(string v)
-        {
-            this.v = v;
         }
     }
 }
