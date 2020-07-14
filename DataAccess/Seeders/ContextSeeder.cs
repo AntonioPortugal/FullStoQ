@@ -1,4 +1,5 @@
 ﻿using Recodme.RD.FullStoQ.Data.Commercial;
+using Recodme.RD.FullStoQ.Data.Goods;
 using Recodme.RD.FullStoQ.Data.Q;
 using Recodme.RD.FullStoQ.DataAccess.Contexts;
 
@@ -16,6 +17,9 @@ namespace Recodme.RD.FullStoQ.DataAccess.Seeders
             var est1 = new Establishment("rua das papoilas", "09h00", "20h00", "sundays and holidays", reg1.Id, comp1.Id);
             var reQ1 = new ReservedQueue(est1.Id);
             var stQ1 = new StoreQueue(12, est1.Id);
+
+            
+
 
             _ctx.Companies.AddRange(comp1);
             _ctx.Regions.AddRange(reg1);
