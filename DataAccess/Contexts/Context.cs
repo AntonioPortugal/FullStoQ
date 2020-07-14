@@ -51,7 +51,7 @@ namespace Recodme.RD.FullStoQ.DataAccess.Contexts
         public DbSet<StoreQueue> StoreQueues { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<ShoppingBasket> ShoppingBaskets { get; set; }
-        public DbSet<Type> Types { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<ReservedQueue> ReservedQueues { get; set; }
 
     }
