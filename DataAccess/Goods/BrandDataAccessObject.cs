@@ -17,7 +17,6 @@ namespace Recodme.RD.FullStoQ.DataAccess.Goods
             _context = new Context();
         }
 
-
         #region List
         public List<Brand> List()
         {
