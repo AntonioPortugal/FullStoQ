@@ -89,7 +89,7 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
         #endregion
 
-        #region Assync 
+        #region Assync Delete
         [TestMethod]
         public void TestDeleteEstablishmentAsync()
         {
@@ -101,6 +101,29 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
             Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.Count == 0);
         }
         #endregion
+
+        #region Assync Update
+        [TestMethod]
+        public void TestUpdateEstablishmentAsync()
+        {
+            ContextSeeder.Seed();
+            var mbo = new EstablishmentBusinessObject();
+            var resList = mbo.List();
+            var item = resList.Result.FirstOrDefault();
+
+            var newEstablishment = new Establishment("Rua Magnolia numero", 4522220);
+
+            item.Name = newEstablishment.Name;
+            item.VatNumber = newEstablishment.VatNumber;
+
+
+            var resUpdate = mbo.UpdateAsync(item).Result;
+            resList = mbo.ListAsync().Result;
+
+            Assert.IsTrue(resList.Success && resUpdate.Success &&
+                resList.Result.First().Name == newEstablishment.Name &&
+                resList.Result.First().VatNumber == newEstablishment.VatNumber);
+        }
     }
 }
 

@@ -9,28 +9,29 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
     [TestClass]
     public class CompanyTest
     {
-        #region Create
+        #region Create and Read
         [TestMethod]
-        public void TestCreateCompany()
+        public void TestCreateAndReadCompany()
         {
             ContextSeeder.Seed();
             var bo = new CompanyBusinessObject();
             var com = new Company("Sonae", 12345);
-            var res = bo.Create(com);
-            Assert.IsTrue(res.Success);
+            var resCreate = bo.Create(com);
+            var resGet = bo.Read(com.Id);
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
         #endregion
 
-        #region Read
+        #region Create and Read Async
         [TestMethod]
-        public void TestReadCompany()
+        public void TestCreateAndReadCompanyAsync()
         {
             ContextSeeder.Seed();
-            var obj = new CompanyBusinessObject();
-            var com = new Company("Sonae", 12345);
-            obj.Create(com);
-            var resGet = obj.Read(com.Id);
-            Assert.IsTrue(resGet.Success && resGet.Result != null);
+            var bo = new CompanyBusinessObject();
+            var reg = new Company("Sonae", 1823445);
+            var resCreate = bo.CreateAsync(reg).Result;
+            var resGet = bo.ReadAsync(reg.Id).Result;
+            Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
         #endregion
 
@@ -39,14 +40,28 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         public void TestUpdateCompany()
         {
             ContextSeeder.Seed();
-            var bo = new CompanyBusinessObject();
-            var com = new Company("Sonae", 12345);
+            var bo = new CompanyBusinessObject();           
             var resList = bo.List();
             var item = resList.Result.FirstOrDefault();
             item.Name = "Jerónimo Martins";
             var resUpdate = bo.Update(item);
-            var resNotList = bo.List().Result.Where(x => !x.IsDeleted);
+            var resNotList = bo.ListNotDeleted().Result;
             Assert.IsTrue(resUpdate.Success && resNotList.First().Name == "Jerónimo Martins");
+        }
+        #endregion
+
+        #region Update Assync
+        [TestMethod]
+        public void TestUpdateCompanyAsync()
+        {
+            ContextSeeder.Seed();
+            var bo = new CompanyBusinessObject();
+            var resList = bo.ListAsync().Result;
+            var item = resList.Result.FirstOrDefault();
+            item.Name = "Jerónimo Martins";
+            var resUpdate = bo.UpdateAsync(item).Result;
+            resList = bo.ListNotDeletedAsync().Result;
+            Assert.IsTrue(resList.Success && resUpdate.Success && resList.Result.First().Name == "Jerónimo Martins");
         }
         #endregion
 
@@ -64,6 +79,19 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
         #endregion        
 
+        #region Assync Delete
+        [TestMethod]
+        public void TestDeleteEstablishmentAsync()
+        {
+            ContextSeeder.Seed();
+            var bo = new CompanyBusinessObject();
+            var resList = bo.ListAsync().Result;
+            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
+            resList = bo.ListNotDeletedAsync().Result;
+            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.Count == 0);
+        }
+        #endregion
+
         #region List
         [TestMethod]
         public void TestListCompany()
@@ -75,16 +103,14 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
         #endregion
 
-        #region Assync 
+        #region List Async
         [TestMethod]
-        public void TestDeleteEstablishmentAsync()
+        public void TestListCompanyAsync()
         {
             ContextSeeder.Seed();
             var bo = new CompanyBusinessObject();
             var resList = bo.ListAsync().Result;
-            var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
-            resList = bo.ListNotDeletedAsync().Result;
-            Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.Count == 0);
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
         }
         #endregion
     }
