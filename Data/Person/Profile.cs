@@ -1,4 +1,5 @@
 ﻿using Recodme.RD.FullStoQ.Data.Base;
+using Recodme.RD.FullStoQ.Data.Goods;
 using Recodme.RD.FullStoQ.Data.Q;
 using System;
 using System.Collections.Generic;
@@ -80,6 +81,7 @@ namespace Recodme.RD.FullStoQ.Data.Person
         }
 
         public ICollection<ReservedQueue> ReservedQueues { get; set; }
+        public ICollection<ShoppingBasket> ShoppingBaskets { get; set; }
         public ICollection<Message> IncomingMessages { get; set; }
         public ICollection<Message> OutgoingMessages { get; set; }
 
