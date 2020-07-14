@@ -5,11 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\GoodsControllers\" />
     <Folder Include="Controllers\PersonControllers\" />
     <Folder Include="Controllers\PersonControllers\" />
     <Folder Include="Models\PersonControllers\" />
-    <Folder Include="Models\GoodsViewModel\" />
   </ItemGroup>
 
   <ItemGroup>
