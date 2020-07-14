@@ -48,6 +48,7 @@ namespace Recodme.RD.FullStoQ.Data.Goods
         }
 
         private float _weight;
+        private string v;
 
         [Required]
         public float Weight
@@ -93,6 +94,11 @@ namespace Recodme.RD.FullStoQ.Data.Goods
             BarCode = barCode;
             Price = price;
             Weight = weight;
+        }
+
+        public EssentialGood(string v)
+        {
+            this.v = v;
         }
     }
 }
