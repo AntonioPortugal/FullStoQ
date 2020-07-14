@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Recodme.RD.FullStoQ.FullStoQTest
+namespace Recodme.RD.FullStoQ.FullStoQTest.Q
 {
     [TestClass]
     public class ReservedQueueTest

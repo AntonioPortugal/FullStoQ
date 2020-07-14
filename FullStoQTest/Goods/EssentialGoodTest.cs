@@ -1,59 +1,58 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Recodme.RD.FullStoQ.Business.Commercial;
-using Recodme.RD.FullStoQ.Data.Commercial;
+using Recodme.RD.FullStoQ.Business.Goods;
+using Recodme.RD.FullStoQ.Data.Goods;
 using Recodme.RD.FullStoQ.DataAccess.Seeders;
 using System.Linq;
 
-namespace Recodme.RD.FullStoQ.FullStoQTest
+namespace Recodme.RD.FullStoQ.FullStoQTest.Goods
 {
     [TestClass]
-    public class RegionTest
+    public class EssentialGoodTest
     {
-        [TestMethod]
-        public void TestCreateAndReadRegions()
+        public void TestCreateAndReadEssentialGoods()
         {
             ContextSeeder.Seed();
-            var bo = new RegionBusinessObject();
-            var reg = new Region("Lisboa");
+            var bo = new EssentialGoodBusinessObject();
+            var reg = new EssentialGood("Lisboa");
             var resCreate = bo.Create(reg);
             var resGet = bo.Read(reg.Id);
             Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
 
         [TestMethod]
-        public void TestCreateAndReadRegionAsync()
+        public void TestCreateAndReadEssentialGoodAsync()
         {
             ContextSeeder.Seed();
-            var bo = new RegionBusinessObject();
-            var reg = new Region("Lisboa");
+            var bo = new EssentialGoodBusinessObject();
+            var reg = new EssentialGood("Lisboa");
             var resCreate = bo.CreateAsync(reg).Result;
             var resGet = bo.ReadAsync(reg.Id).Result;
             Assert.IsTrue(resCreate.Success && resGet.Success && resGet.Result != null);
         }
 
         [TestMethod]
-        public void TestListRegions()
+        public void TestListEssentialGoods()
         {
             ContextSeeder.Seed();
-            var bo = new RegionBusinessObject();
+            var bo = new EssentialGoodBusinessObject();
             var resList = bo.List();
             Assert.IsTrue(resList.Success && resList.Result.Count == 1);
         }
 
         [TestMethod]
-        public void TestListRegionAsync()
+        public void TestListEssentialGoodAsync()
         {
             ContextSeeder.Seed();
-            var bo = new RegionBusinessObject();
+            var bo = new EssentialGoodBusinessObject();
             var resList = bo.ListAsync().Result;
             Assert.IsTrue(resList.Success && resList.Result.Count == 1);
         }
 
         [TestMethod]
-        public void TestUpdateRegions()
+        public void TestUpdateEssentialGoods()
         {
             ContextSeeder.Seed();
-            var bo = new RegionBusinessObject();
+            var bo = new EssentialGoodBusinessObject();
             var resList = bo.List();
             var item = resList.Result.FirstOrDefault();
             item.Name = "another";
@@ -63,10 +62,10 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
 
         [TestMethod]
-        public void TestUpdateRegionnAsync()
+        public void TestUpdateEssentialGoodnAsync()
         {
             ContextSeeder.Seed();
-            var bo = new RegionBusinessObject();
+            var bo = new EssentialGoodBusinessObject();
             var resList = bo.ListAsync().Result;
             var item = resList.Result.FirstOrDefault();
             item.Name = "another";
@@ -76,10 +75,10 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
 
         [TestMethod]
-        public void TestDeleteRegions()
+        public void TestDeleteEssentialGoods()
         {
             ContextSeeder.Seed();
-            var bo = new RegionBusinessObject();
+            var bo = new EssentialGoodBusinessObject();
             var resList = bo.List();
             var resDelete = bo.Delete(resList.Result.First().Id);
             var resNotList = bo.List().Result.Where(x => !x.IsDeleted).ToList();
@@ -87,15 +86,14 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
 
         [TestMethod]
-        public void TestDeleteRegionAsync()
+        public void TestDeleteEssentialGoodAsync()
         {
             ContextSeeder.Seed();
-            var bo = new RegionBusinessObject();
+            var bo = new EssentialGoodBusinessObject();
             var resList = bo.ListAsync().Result;
             var resDelete = bo.DeleteAsync(resList.Result.First().Id).Result;
             resList = bo.ListNotDeletedAsync().Result;
             Assert.IsTrue(resDelete.Success && resList.Success && resList.Result.Count == 0);
         }
-
     }
 }

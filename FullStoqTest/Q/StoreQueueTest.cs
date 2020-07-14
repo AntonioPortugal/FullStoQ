@@ -6,7 +6,7 @@ using Recodme.RD.FullStoQ.Data.Q;
 using Recodme.RD.FullStoQ.DataAccess.Seeders;
 using System.Linq;
 
-namespace Recodme.RD.FullStoQ.FullStoQTest
+namespace Recodme.RD.FullStoQ.FullStoQTest.Q
 {
     [TestClass]
     public class StoreQueueTest
