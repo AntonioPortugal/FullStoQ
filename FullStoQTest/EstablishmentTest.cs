@@ -29,7 +29,7 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
         #endregion
 
-        #region Create and Read Assync
+        #region Create and Read Async
         [TestMethod]
         public void TestCreateAndReadEstablishmentAsync()
         {
@@ -73,6 +73,20 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
         #endregion
 
+        #region Update Async
+        [TestMethod]
+        public void TestUpdateEstablishmentAsync()
+        {
+            ContextSeeder.Seed();
+            var bo = new EstablishmentBusinessObject();
+            var restList = bo.ListAsync().Result;
+            var item = restList.Result.FirstOrDefault();
+            item.ClosingDays = "Terça-feira";
+            var resUpdate = bo.UpdateAsync(item).Result;
+            restList = bo.ListNotDeletedAsync().Result;
+            Assert.IsTrue(restList.Success && resUpdate.Success && restList.Result.First().ClosingDays == "Terça-feira");
+        }
+        #endregion
 
         #region Delete
         [TestMethod]
@@ -92,17 +106,7 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
         #endregion
 
-        #region List
-        [TestMethod]
-        public void TestListEstablishment()
-        {
-            var bo = new EstablishmentBusinessObject();
-            var resList = bo.List();
-            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
-        }
-        #endregion
-
-        #region Assync Delete
+        #region Async Delete
         [TestMethod]
         public void TestDeleteEstablishmentAsync()
         {
@@ -115,6 +119,26 @@ namespace Recodme.RD.FullStoQ.FullStoQTest
         }
         #endregion
 
+        #region List
+        [TestMethod]
+        public void TestListEstablishment()
+        {
+            var bo = new EstablishmentBusinessObject();
+            var resList = bo.List();
+            Assert.IsTrue(resList.Success && resList.Result.Count == 1);
+        }
+        #endregion
+
+        #region List Async
+        [TestMethod]
+        public void TestListEstablishmentAsync()
+        {
+            ContextSeeder.Seed();
+            var bo = new EstablishmentBusinessObject();
+            var restList = bo.ListAsync().Result;
+            Assert.IsTrue(restList.Success && restList.Result.Count == 1);
+        }
+        #endregion
 
     }
 }
